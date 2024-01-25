@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-  .category{
-    @apply rounded m-1 w-full h-[auto] object-cover
-  }
+
+:root{
+  --hover-bg : #e8c0a7 ;
 }
