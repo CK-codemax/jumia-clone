@@ -19,9 +19,9 @@ export default function Categories() {
 
   return(
     
-<div className="grid p-2 box-border gap-0.5 grid-rows-3 grid-cols-4 md:grid-rows-2 md:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
+<div className="grid p-2 box-border gap-0.5 md:gap-1 xl:gap-2 grid-rows-3 grid-cols-4 md:grid-rows-2 md:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
   
-  {categoryImages.map((image) => <Image className="cursor-pointer object-cover lg:hover:scale-105" src={image} key={image} alt='category-image' width={300} height={240} />)}
+  {categoryImages.map((image) => <Image className="cursor-pointer rounded-md object-cover" src={image} key={image} alt='category-image' width={300} height={240} />)}
   
 </div>
 

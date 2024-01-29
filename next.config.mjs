@@ -7,6 +7,18 @@ const nextConfig = {
             hostname: 'ng.jumia.is',
             port: '',
           },
+
+          {
+            protocol: 'https',
+            hostname: 'm.media-amazon.com',
+            port: '',
+          },
+
+          {
+            protocol: 'https',
+            hostname: "fdn2.gsmarena.com" ,
+            port: '',
+          },
         ],
       },
 };
