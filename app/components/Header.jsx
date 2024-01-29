@@ -1,5 +1,6 @@
 'use client'
-
+import { redirect } from 'next/navigation';
+import {signIn, signOut, useSession} from 'next-auth/react'
 import Image from "next/image";
 import HeaderIcon from "./HeaderIcon";
 import {Bars3Icon, BriefcaseIcon, BuildingOffice2Icon, ChevronDownIcon, PhoneIcon, QuestionMarkCircleIcon, ShoppingCartIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -10,8 +11,16 @@ import InputBox from "./InputBox";
 import { useState } from "react";
 import Categories from "./Categories";
 
+
 export default function Header() {
   const [show, setShow] = useState(false)
+  const { data : session } = useSession({
+    required : true,
+    onUnauthenticated(){
+      redirect('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
+    }
+  })
+
 
   return (
     <header className={`flex flex-col`}>
@@ -24,6 +33,11 @@ export default function Header() {
 
         {/*Middle*/}
       
+      {session && <>
+        <p>{session?.user.name}</p>
+        <p>{session?.user.email}</p>
+        {/* <img src={session?.user.image} alt='ochuko' /> */}
+      </>}
 
         <div className="w-full relative">
 
@@ -56,12 +70,12 @@ export default function Header() {
                  <ChevronDownIcon className="hidden lg:inline-flex h-5"/>
                </div>
  
-               <div className=" hidden lg:flex hover:text-[#f68b1e] items-center space-x-2">
+               <div onClick={signOut} className=" hidden lg:flex hover:text-[#f68b1e] items-center space-x-2">
                  <HeaderIcon Icon={QuestionMarkCircleIcon} title={'help'} />
                  <ChevronDownIcon className="h-5"/>
                </div>
  
-               <div className="flex lg:hover:text-[#f68b1e]  items-center space-x-2">
+               <div onClick={signIn} className="flex lg:hover:text-[#f68b1e]  items-center space-x-2">
                  <HeaderIcon Icon={ShoppingCartIcon} title={'cart'} />
                </div>
  
