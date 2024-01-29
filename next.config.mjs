@@ -19,6 +19,12 @@ const nextConfig = {
             hostname: "fdn2.gsmarena.com" ,
             port: '',
           },
+
+          {
+            protocol: 'https',
+            hostname: "fdn.gsmarena.com" ,
+            port: '',
+          },
         ],
       },
 };
