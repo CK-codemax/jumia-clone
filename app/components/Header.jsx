@@ -65,7 +65,7 @@ export default function Header() {
  
  
               <div className="flex space-x-3">
-              <div className="flex  lg:hover:text-[#f68b1e] items-center space-x-2">
+              <div onClick={signIn} className="flex  lg:hover:text-[#f68b1e] items-center space-x-2">
                  <HeaderIcon Icon={UserIcon} title={'account'} />
                  <ChevronDownIcon className="hidden lg:inline-flex h-5"/>
                </div>
@@ -75,9 +75,9 @@ export default function Header() {
                  <ChevronDownIcon className="h-5"/>
                </div>
  
-               <div onClick={signIn} className="flex lg:hover:text-[#f68b1e]  items-center space-x-2">
+               <Link href={'/checkout'}  className="flex lg:hover:text-[#f68b1e]  items-center space-x-2">
                  <HeaderIcon Icon={ShoppingCartIcon} title={'cart'} />
-               </div>
+               </Link>
  
  
               </div>
