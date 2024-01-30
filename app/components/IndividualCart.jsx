@@ -1,9 +1,28 @@
-import { TrashIcon } from "@heroicons/react/24/outline";
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
 import Button from "./Button";
+import { useDispatch, useSelector } from "react-redux";
+import { decreaseItemQuantity, deleteItem, increaseItemQuantity } from "../redux/cartSlice";
 
 export default function IndividualCart({item}) {
+  const cart = useSelector(state=>state.cart.cart)
+  const cartItem = cart.find((product) => product.url === item.url )
+
+  const dispatch = useDispatch()
+
+  function handleDeleteCart(){
+   dispatch(deleteItem(item.url))
+  }
+
+  function handleIncreaseQuantity(){
+    dispatch(increaseItemQuantity(item.url))
+   }
+
+   function handleDecreaseQuantity(){
+    dispatch(decreaseItemQuantity(item.url))
+   }
   return (
     <div className="w-full px-2 lg:px-4 py-2 border-b flex flex-col" >
         
@@ -26,7 +45,8 @@ export default function IndividualCart({item}) {
      -{Math.ceil((+item.deal.discount) / ((+item.deal.price) + (+item.deal.discount)) * 100)}%
   </div>  
       </div>
-    
+      
+  
         </div>
     </div>
 
@@ -41,6 +61,7 @@ export default function IndividualCart({item}) {
      -{Math.ceil((+item.deal.discount) / ((+item.deal.price) + (+item.deal.discount)) * 100)}%
   </div>  
   </div>
+  <p className="mt-2 text-gray-700">{item.deal.currency}{Math.ceil(+item.deal.price * +cartItem.quantity)}</p>
     
   </div>
 
@@ -48,14 +69,14 @@ export default function IndividualCart({item}) {
   </div>
   <div className="flex items-center p-2 w-full justify-between">
     <div className="flex items-center space-x-3 text-[#f68b1e]">
-        <Button type={'remove'} />
+        <Button onClick={handleDeleteCart} type={'remove'} />
       
     </div>
 
      <div className="flex items-center space-x-3">
-     <Button type={'minus'} />
-     <span>2</span>
-     <Button type={'add'} />
+     <Button onClick={handleDecreaseQuantity} type={'minus'} />
+     <span>{cartItem.quantity}</span>
+     <Button onClick={handleIncreaseQuantity} type={'add'} />
         
      </div>
   </div>

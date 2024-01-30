@@ -10,6 +10,7 @@ import NavBar from "./NavBar";
 import InputBox from "./InputBox";
 import { useState } from "react";
 import Categories from "./Categories";
+import { useSelector } from 'react-redux';
 
 
 export default function Header() {
@@ -20,6 +21,7 @@ export default function Header() {
       redirect('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
     }
   })
+  const cart = useSelector(state=>state.cart.cart)
 
 
   return (
@@ -75,8 +77,9 @@ export default function Header() {
                  <ChevronDownIcon className="h-5"/>
                </div>
  
-               <Link href={'/checkout'}  className="flex lg:hover:text-[#f68b1e]  items-center space-x-2">
+               <Link href={'/checkout'}  className="flex group relative lg:hover:text-[#f68b1e]  items-center space-x-2">
                  <HeaderIcon Icon={ShoppingCartIcon} title={'cart'} />
+                 <span className='bg-[#f68b1e] group-hover:text-white absolute w-[20px] top-0 left-2 h-[20px] text-xs rounded-full flex justify-center items-center'>{cart.length}</span>
                </Link>
  
  

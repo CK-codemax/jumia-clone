@@ -36,8 +36,7 @@ export default function SlideShow(){
         pagination={{
           clickable: true,
         }}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+       
       >
       
   {slideShowImages.map((image, i) => 
@@ -63,8 +62,7 @@ export default function SlideShow(){
         // pagination={{
         //   clickable: true,
         // }}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+     
       >
       
   

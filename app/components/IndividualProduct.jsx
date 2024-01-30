@@ -1,10 +1,35 @@
 'use client'
 
-import { MinusIcon, PlusIcon, ShoppingCartIcon } from "@heroicons/react/24/outline"
+import { ShoppingCartIcon } from "@heroicons/react/24/outline"
 import { FireIcon } from "@heroicons/react/24/solid"
 import Image from "next/image"
+import { useDispatch, useSelector } from "react-redux"
+import { addItem, decreaseItemQuantity, increaseItemQuantity } from "../redux/cartSlice"
+import Button from "./Button"
 
 export default function IndividualProduct({device, deal}) {
+ const cart = useSelector(state=>state.cart.cart)
+ const cartItem = cart.find((cartItem) => cartItem.url === deal.url) 
+
+
+  const dispatch = useDispatch()
+
+  function handleAddToCart(){
+   const newItem = {
+    url : deal.url,
+    quantity : 1,}
+
+    dispatch(addItem(newItem))
+  }
+
+  function handleIncreaseQuantity(){
+    dispatch(increaseItemQuantity(deal.url))
+   }
+
+   function handleDecreaseQuantity(){
+    dispatch(decreaseItemQuantity(deal.url))
+   }
+
     console.log(device, deal)
   return (
     <div className="w-full min-h-screen">
@@ -17,6 +42,7 @@ export default function IndividualProduct({device, deal}) {
     </div>
     <div className="flex border-t border-black lg:border-none flex-col w-full justify-start items-start">
        <p className="text-left font-semibold text-xl lg:text-2xl text-wrap ml-4 mr-2">{device.name} {' '} {deal.deal.memory}</p>
+    
        <p className="text-left ml-4 text-wrap mr-2">{deal.description}</p>
        <div className="w-[90%] border pb-2 overflow-hidden border-red-500 ml-4 my-4 rounded-md">
         <div className="bg-red-500 flex items-center pl-4 space-x-1 py-2 w-full">
@@ -55,10 +81,18 @@ export default function IndividualProduct({device, deal}) {
         <Image className="object-cover mx-auto lg:ml-4 rounded-md w-[50%] h-auto" src={device.img} width={500} height={300} alt="product-image" />
     </div>
 
-    <button className="mt-5 mx-auto flex text-white justify-center w-[90%] items-center lg:ml-4 px-4 py-2 rounded-md bg-[#f68b1e]">
+    {!cartItem? (<button onClick={handleAddToCart} className="mt-5 mx-auto flex text-white justify-center w-[90%] items-center lg:ml-4 px-4 py-2 rounded-md bg-[#f68b1e]">
         <ShoppingCartIcon className="h-5" />
         <span className="uppercase font-semibold">add to cart</span>
-      </button>
+      </button>) : (
+          <div className="flex w-full justify-center mt-5 items-center space-x-3">
+          <Button onClick={handleDecreaseQuantity} type={'minus'} />
+          <span>{cartItem.quantity}</span>
+          <Button onClick={handleIncreaseQuantity} type={'add'} />
+             
+          </div>
+      )}
+
     </div>
     </div>
 
