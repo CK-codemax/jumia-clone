@@ -1,11 +1,18 @@
+'use client'
+import { useSelector } from "react-redux";
 import IndividualCart from "./IndividualCart";
 
 export default function CartList({list}) {
+    const username = useSelector(state=>state.user.username)
+    const cartItems = username.map((cart) => list.find((item) => item.id ===  cart))
+
+ console.log(username, cartItems)
+ 
   return (
   <div className="flex flex-col lg:flex-row lg:px-10 py-2 lg:py-6 bg-gray-300 w-full lg:space-x-3 items-start">
       <div className="flex lg:px-2 bg-white lg:rounded-md flex-col w-full py-3">
         <p className="font-semibold py-2 pb-4 ml-4 text-lg border-b">Cart 3</p>
-        {list.map((item) => <IndividualCart key={item.id} item={item} />)}
+        {cartItems.map((item, i) => <IndividualCart key={item.id + i} item={item} />)}
     </div>
 
     <div className="flex mt-3 w-full lg:hidden items-center space-x-1">
