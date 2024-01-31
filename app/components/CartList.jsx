@@ -2,8 +2,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import IndividualCart from "./IndividualCart";
 import { clearCart } from "../redux/cartSlice";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
+
 
 export default function CartList({list}) {
+ 
+    const router = useRouter()
+
+
     const cart = useSelector(state=>state.cart.cart)
     const cartItems = cart.map((cartItem) => list.find((item) => item.url ===  cartItem.url))
     const totalPrice = cart.map((cartItem) => +(list.find((item) => item.url === cartItem.url).deal.price * cartItem.quantity)).reduce((acc, cur) => acc + cur, 0)
@@ -13,7 +20,11 @@ export default function CartList({list}) {
     function handleClearCart(){
       dispatch(clearCart())
     }
+    
+    function handleCheckout(){
 
+      router.push('/buy')
+    }
  console.log(cart, cartItems)
  
   return (
@@ -51,7 +62,7 @@ export default function CartList({list}) {
 
     {cart.length > 0 ? (
       
-      <button className="mt-5 mx-auto text-white py-2 text-center w-[90%] rounded-md bg-[#f68b1e]">
+      <button onClick={handleCheckout} className="mt-5 mx-auto text-white py-2 text-center w-[90%] rounded-md bg-[#f68b1e]">
       <span className="uppercase font-semibold">checkout</span>
     </button>
     ) : null}

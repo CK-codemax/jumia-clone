@@ -15,12 +15,12 @@ import { useSelector } from 'react-redux';
 
 export default function Header() {
   const [show, setShow] = useState(false)
-  const { data : session } = useSession({
+  const { data : session } = useSession(/*{
     required : true,
     onUnauthenticated(){
       redirect('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
     }
-  })
+  }*/)
   const cart = useSelector(state=>state.cart.cart)
 
 

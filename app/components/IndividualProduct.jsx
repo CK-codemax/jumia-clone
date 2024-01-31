@@ -92,10 +92,16 @@ export default function IndividualProduct({device, deal}) {
              
           </div>
       )}
+      
+      <div className="ml-4 mt-5">
+      <p className="font-semibold text-lg lg:text-xl mb-2 uppercase">quick specs</p>
+      {device.quickSpec.map((spec) => <p key={spec.name}><span className="font-semibold">{spec.name} :</span><span>{" "}{spec.value}</span></p>)}
+    </div>
 
     </div>
     </div>
 
+   
     {/* <div className="w-full flex justify-center pb-14 items-center space-x-3 mt-5">
     <button className="uppercase px-4 py-2 rounded-md bg-[#f68b1e]">
     <MinusIcon className="h-5"/>
