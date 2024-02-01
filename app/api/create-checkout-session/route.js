@@ -56,7 +56,7 @@ export async function POST(response){
         // description: 'Comfortable cotton t-shirt',
         // images: ['https://ng.jumia.is/cms/0-1-initiatives/weekend-super-savers/2023/Artboard_1_copy_2.png'],
         price_data: {
-          currency: 'usd',
+          currency: 'gbp',
           unit_amount: item.deal.price * 100,
           product_data: {
             name: item.name,
@@ -120,7 +120,9 @@ export async function POST(response){
         shipping_address_collection : {
           allowed_countries : ['GB', 'US', 'CA',],
         },
-      //  shipping_options : ['shr_1OeoDYL6zEQMXk8ImT2SYRsp'],
+      shipping_options : [ {
+        shipping_rate : 'shr_1OeoDYL6zEQMXk8ImT2SYRsp'
+      },],
         mode : 'payment',
         success_url : `${process.env.HOST}/success`,
         cancel_url : `${process.env.HOST}/checkout`,
