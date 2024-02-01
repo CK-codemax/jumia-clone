@@ -11,6 +11,9 @@
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "@reduxjs/toolkit": "^2.1.0",
+    "@stripe/react-stripe-js": "^2.4.0",
+    "@stripe/stripe-js": "^2.4.0",
+    "axios": "^1.6.7",
     "firebase": "^10.7.2",
     "gsmarena-api": "^2.0.4",
     "next": "14.1.0",
@@ -19,6 +22,7 @@
     "react-dom": "^18",
     "react-redux": "^9.1.0",
     "react-responsive-carousel": "^3.2.23",
+    "stripe": "^14.14.0",
     "swiper": "^11.0.5"
   },
   "devDependencies": {

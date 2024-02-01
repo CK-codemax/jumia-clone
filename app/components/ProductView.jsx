@@ -3,6 +3,7 @@
 import ProductThumbnail from "./ProductThumbnail"
 
 export default function ProductView({products}) {
+    
     console.log(products)
   return (
     <>

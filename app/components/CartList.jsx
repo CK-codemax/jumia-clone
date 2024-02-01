@@ -2,30 +2,84 @@
 import { useDispatch, useSelector } from "react-redux";
 import IndividualCart from "./IndividualCart";
 import { clearCart } from "../redux/cartSlice";
-import { redirect } from "next/dist/server/api-utils";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "next-auth/react";
 
+
+
+const asyncStripe = loadStripe('pk_test_51OemV9L6zEQMXk8IKB0PhZU0XR9uyNgzVntexCvIPKDAf2sSEYd6PTrZSkrVVn0X3L6yPNWWG9R0WV5tqZtl8KIA001sA1OQ2G')
+const axios = require('axios');
 
 export default function CartList({list}) {
  
     const router = useRouter()
+    const { data : session } = useSession({
+      required : true,
+      onUnauthenticated(){
+        redirect('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
+      }
+    })
 
 
     const cart = useSelector(state=>state.cart.cart)
-    const cartItems = cart.map((cartItem) => list.find((item) => item.url ===  cartItem.url))
-    const totalPrice = cart.map((cartItem) => +(list.find((item) => item.url === cartItem.url).deal.price * cartItem.quantity)).reduce((acc, cur) => acc + cur, 0)
-
+    const cartItems = cart.map((cartItem) => ({...list.find((item) => item.url ===  cartItem.url), quantity : cartItem.quantity,}))
+    const totalPrice = cart.map((cartItem) => +(list.find((item) => item.url === cartItem.url)?.deal.price * cartItem.quantity)).reduce((acc, cur) => acc + cur, 0)
+    
     const dispatch = useDispatch()
 
     function handleClearCart(){
       dispatch(clearCart())
     }
     
-    function handleCheckout(){
+    async function createCheckoutSession(){
+      
+        const stripe = await asyncStripe;
 
-      router.push('/buy')
+
+        // Send data to API route 
+        const res = await fetch('http://localhost:3000/api/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                cartItems, email : session.user.email,
+            })
+        })
+       
+   
+      
+        const result = await res.json()
+        console.log(result, result.session.id)
+
+
+      // const checkoutSession = axios.post('/api/create-checkout-session',
+      // {
+      //   cartItems : cartItems,
+      //   email : session.user.email,
+      // })
+
+      const resultNext = await stripe.redirectToCheckout({
+        sessionId: result.session.id
+      })
+
+      //  if(result.error)alert(result.error.message)
+
+      //  fetch('/api/create-checkout-session', {
+      //   method: 'POST',
+      //   body: JSON.stringify({
+      //       cartItems : cartItems,
+      //        email : session.user.email
+      //      }),
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   }
+      // }).then(response => response.json())
+      //   .then((data) => console.log(data))
+      
     }
- console.log(cart, cartItems)
+ //console.log(cart, cartItems)
  
   return (
   <div className="flex flex-col lg:flex-row lg:px-10 py-2 lg:py-6 bg-gray-300 w-full lg:space-x-3 items-start">
@@ -38,12 +92,12 @@ export default function CartList({list}) {
        </button>
        ) : null }
     </div>
-        {cartItems.map((item, i) => <IndividualCart key={item.id + i} item={item} />)}
+        {cartItems.map((item) => <IndividualCart key={item.url} item={item} />)}
     </div>
 
    {cart.length > 0 ? (
      <div className="flex mt-3 w-full lg:hidden items-center space-x-1">
-     <button className="mt-5 mx-auto text-white py-2 text-center w-[90%] rounded-md bg-[#f68b1e]">
+     <button  role="link" onClick={createCheckoutSession}  className="mt-5 mx-auto text-white py-2 text-center w-[90%] rounded-md bg-[#f68b1e]">
          <span className="uppercase font-semibold">checkout</span>
        </button>
      </div>
@@ -62,7 +116,7 @@ export default function CartList({list}) {
 
     {cart.length > 0 ? (
       
-      <button onClick={handleCheckout} className="mt-5 mx-auto text-white py-2 text-center w-[90%] rounded-md bg-[#f68b1e]">
+      <button role="link" onClick={createCheckoutSession} className="mt-5 mx-auto text-white py-2 text-center w-[90%] rounded-md bg-[#f68b1e]">
       <span className="uppercase font-semibold">checkout</span>
     </button>
     ) : null}

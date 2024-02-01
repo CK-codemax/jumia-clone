@@ -36,7 +36,7 @@ export default function IndividualProduct({device, deal}) {
       <div className="flex flex-col justify-center items-center lg:items-start w-full lg:flex-row">
 
     <div className=" w-full  lg:w-[25%]">
-        <Image className="object-cover mx-auto rounded-md w-[75%] lg:w-[100%] h-auto" src={deal.img} width={500} height={300} alt="product-image" />
+        <Image className="object-cover mx-auto rounded-md w-[75%] lg:w-[100%] h-auto" src={deal?.img || device?.img} width={500} height={300} alt="product-image" />
         {/* <Image className="object-cover max-w-[200px] h-auto" src={deal.img} width={500} height={800} alt="product-image" /> */}
    
     </div>

@@ -6,3 +6,24 @@
 :root{
   --hover-bg : #e8c0a7 ;
 }
+
+@layer components{
+  @keyframes loader{
+    0%{
+        transform: scale(0);
+    }
+    40%{
+        transform: scale(1);
+    }
+    80%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(0);
+    }
+}
+
+.loader-box{
+    animation: loader 2s linear infinite;
+}
+}

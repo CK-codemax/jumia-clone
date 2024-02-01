@@ -2,17 +2,17 @@ const { createSlice } = require("@reduxjs/toolkit")
 
 
 const initialState = {
-    cart : [{
-        url : 'https://www.amazon.com/dp/B0BYH9S5MT?tag=gsmarena093-20&linkCode=osi&th=1&psc=1',
-        quantity : 6,
+     cart : [//{
+    //     url : 'https://www.amazon.com/dp/B0BYH9S5MT?tag=gsmarena093-20&linkCode=osi&th=1&psc=1',
+    //     quantity : 6,
        
-    },
+    // },
 
-    {
-        url : 'https://www.amazon.com/dp/B0BVL4VRXN?tag=gsmarena093-20&linkCode=osi&th=1&psc=1',
-        quantity : 4,
+    // {
+    //     url : 'https://www.amazon.com/dp/B0BVL4VRXN?tag=gsmarena093-20&linkCode=osi&th=1&psc=1',
+    //     quantity : 4,
        
-    },
+    // },
 ]
     
 }

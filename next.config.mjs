@@ -27,6 +27,11 @@ const nextConfig = {
           },
         ],
       },
+
+      env : {
+        stripe_public_key : process.env.STRIPE_PUBLIC_KEY,
+        STRIPE_SECRET_KEY : process.env.STRIPE_SECRET_KEY
+      }
 };
 
 export default nextConfig;
