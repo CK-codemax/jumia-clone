@@ -2,43 +2,7 @@ import { NextResponse } from 'next/server'
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
-// // export default async function POST(req, res){
-    
-// //     const { items, email } = req.body;
 
-// //     const transformedItems = items.map((item) => ({
-// //        description : item.description,
-// //        quantity : 1,
-// //         price_data : {
-// //             currency : 'gbp',
-// //             unit_amount : item.deal.price * 100,
-// //             product_data : {
-// //                 name : item.name,
-// //                 images : [item.img],
-// //             },
-// //         }
-// //     }))
-
-// //     const session = await stripe.checkout.sessions.create({
-// //         payment_method_types : ['card'],
-// //         line_items : transformedItems,
-// //         shipping_address_collection : {
-// //           allowed_countries : ['GB', 'US', 'CA',],
-// //         },
-// //         shipping_rates : ['shr_1OeoDYL6zEQMXk8ImT2SYRsp'],
-// //         mode : payment,
-// //         success_url : `${process.env.HOST}/success`,
-// //         cancel_url : `${process.env.HOST}/checkout`,
-// //         metadata : {
-// //             email,
-// //             images : JSON.stringify(items.map((item) => item.img)),
-// //         }
-// //     })
-
-// //     res.status(200).json({ id: session.id })
-
-// //     console.log(items, email)
-// // }
 
 export async function POST(response){
     
@@ -50,11 +14,6 @@ export async function POST(response){
 
    
     const transformedItems = items.map((item) => ({
-
-
-      
-        // description: 'Comfortable cotton t-shirt',
-        // images: ['https://ng.jumia.is/cms/0-1-initiatives/weekend-super-savers/2023/Artboard_1_copy_2.png'],
         price_data: {
           currency: 'gbp',
           unit_amount: item.deal.price * 100,
@@ -66,33 +25,7 @@ export async function POST(response){
         },
         quantity: item.quantity,
       
-      //  description : item.description,
-      //  quantity : item.quantity,
-      //   price_data : {
-      //       currency : 'gbp',
-      //       unit_amount : item.deal.price * 100,
-      //       product_data : {
-      //           name : item.name,
-      //           images : [item.img],
-      //       },
-      //   }
-
-      
-        // name: 'T-shirt',
-        // description: 'Comfortable cotton t-shirt',
-        // images: ['https://example.com/t-shirt.png'],
-        // amount: 2000,
-        // currency: 'usd',
-        // price_data: {
-        //   currency: 'usd',
-        //   unit_amount: 2000,
-        //   product_data: {
-        //     name: 'T-shirt',
-        //     description: 'Comfortable cotton t-shirt',
-        //     images: ['https://example.com/t-shirt.png'],
-        //   },
-        // },
-        // quantity: 1,
+  
       
     }))
 
@@ -103,22 +36,9 @@ export async function POST(response){
     const session = await stripe.checkout.sessions.create({
         payment_method_types : ['card'],
        line_items : transformedItems,
-      //  line_items: [{
-      //   // description: 'Comfortable cotton t-shirt',
-      //   // images: ['https://ng.jumia.is/cms/0-1-initiatives/weekend-super-savers/2023/Artboard_1_copy_2.png'],
-      //   price_data: {
-      //     currency: 'usd',
-      //     unit_amount: 2000,
-      //     product_data: {
-      //       name: 'T-shirt',
-      //       description: 'Comfortable cotton t-shirt',
-      //       images: ['https://ng.jumia.is/cms/0-1-initiatives/weekend-super-savers/2023/Artboard_1_copy_2.png'],
-      //     },
-      //   },
-      //   quantity: 1,
-      // }],
+   
         shipping_address_collection : {
-          allowed_countries : ['GB', 'US', 'CA',],
+          allowed_countries : ['GB', 'US', 'CA', 'NG',],
         },
       shipping_options : [ {
         shipping_rate : 'shr_1OeoDYL6zEQMXk8ImT2SYRsp'
@@ -132,9 +52,9 @@ export async function POST(response){
         }
     })
 
-    //   res.status(200).json({ id: session.id })
+  
  return NextResponse.json({ items, transformedItems, email, session})
-//  return NextResponse.json({ id: session.id })
+
 
    
 }

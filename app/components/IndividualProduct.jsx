@@ -36,7 +36,7 @@ export default function IndividualProduct({device, deal}) {
       <div className="flex flex-col justify-center items-center lg:items-start w-full lg:flex-row">
 
     <div className=" w-full  lg:w-[25%]">
-        <Image className="object-cover mx-auto rounded-md w-[75%] lg:w-[100%] h-auto" src={deal?.img || device?.img} width={500} height={300} alt="product-image" />
+        <Image className="object-cover mx-auto rounded-md w-[75%] lg:w-[100%] h-auto" src={deal?.img || device?.img} width={500} height={300} alt="product-image" placeholder="blur" blurDataURL="/jumia_img_loader.png"/>
         {/* <Image className="object-cover max-w-[200px] h-auto" src={deal.img} width={500} height={800} alt="product-image" /> */}
    
     </div>
@@ -78,7 +78,7 @@ export default function IndividualProduct({device, deal}) {
         )
       }
        <div className=" mt-5 w-full  lg:w-[25%]">
-        <Image className="object-cover mx-auto lg:ml-4 rounded-md w-[50%] h-auto" src={device.img} width={500} height={300} alt="product-image" />
+        <Image className="object-cover mx-auto lg:ml-4 rounded-md w-[50%] h-auto" src={device.img} width={500} height={300} alt="product-image" placeholder="blur" blurDataURL="/jumia_img_loader.png"/>
     </div>
 
     {!cartItem? (<button onClick={handleAddToCart} className="mt-5 mx-auto flex text-white justify-center w-[90%] items-center lg:ml-4 px-4 py-2 rounded-md bg-[#f68b1e]">
