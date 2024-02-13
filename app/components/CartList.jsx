@@ -5,6 +5,8 @@ import { clearCart } from "../redux/cartSlice";
 import { redirect, useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
+import { collection, doc, getDocs } from "firebase/firestore";
+import { db } from "@/firebase";
 
 
 
@@ -80,6 +82,55 @@ export default function CartList({list}) {
       
     }
  //console.log(cart, cartItems)
+
+ ///////////
+
+// async function getDocsx(id){
+//   const userDocRef = doc(db, 'users', id);
+//   const ordersColRef = collection(userDocRef, 'orders');
+//   const stripeOrders = await getDocs(ordersColRef);
+ 
+//   stripeOrders.docs.forEach((orderDoc) => {
+//     console.log(`Order ID: ${orderDoc.id}, Order Data: ${orderDoc.data()}`);
+//   });
+// }
+
+// getDocsx(session?.user.email)
+
+// async function getDocsx(id){
+//   const userDocRef = collection(db, 'users', id)
+//   const ordersColRef = collection(userDocRef, 'orders');
+//   const snapshots = await getDocs(ordersColRef)
+ 
+
+//   const docs = snapshots.docs.map((doc) => {
+//     const data = doc.data();
+//     data.id = doc.id
+    
+//     return data;
+//   })
+
+//   console.log(docs)
+// }
+
+// getDocsx(session?.user.email)
+
+async function getUsers(){
+  const userDocRef = doc(db, 'users', `${session?.user?.email}`)
+  const ordersColRef = collection(userDocRef, 'orders');
+  const snapshots = await getDocs(ordersColRef)
+
+  const datas = snapshots.docs.map((doc) => {
+    const data = doc.data(); // Correct usage
+    data.id = doc.id;
+    return data;
+  })
+
+  console.log(datas)
+ 
+}
+
+getUsers()
  
   return (
   <div className="flex flex-col lg:flex-row lg:px-10 py-2 lg:py-6 bg-gray-300 w-full lg:space-x-3 items-start">

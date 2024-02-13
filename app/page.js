@@ -9,10 +9,10 @@ const gsmarena = require('gsmarena-api');
 export default async function Home() {
   const deals = await gsmarena.deals.getDeals();
   console.log(deals);
-  // const session = await getServerSession(options)
+   const session = await getServerSession(options)
   // if(!session)return null
   return(<>
-        <p>welcome to new jumia</p>
+        <p>{session?.user?.name} welcome to new jumia</p>
         <ProductView products={deals} />
   </>)
 }

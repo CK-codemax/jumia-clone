@@ -11,10 +11,10 @@ import InputBox from "./InputBox";
 import { useState } from "react";
 import Categories from "./Categories";
 import { useSelector } from 'react-redux';
+import MenuModal from './MenuModal';
 
 
 export default function Header() {
-  const [show, setShow] = useState(false)
   const { data : session } = useSession({
     required : true,
     onUnauthenticated(){
@@ -35,11 +35,11 @@ export default function Header() {
 
         {/*Middle*/}
       
-      {session && <>
+      {/* {session && <>
         <p>{session?.user.name}</p>
         <p>{session?.user.email}</p>
-        {/* <img src={session?.user.image} alt='ochuko' /> */}
-      </>}
+        <img src={session?.user.image} alt='ochuko' /> 
+      </>} */}
 
         <div className="w-full relative">
 
@@ -49,14 +49,14 @@ export default function Header() {
               
               <div className="flex items-center space-x-3 mr-20">
               
-              {show === false && (
-        <>
-         <Bars3Icon onClick={() => setShow(!show)} className="lg:hidden h-5" />
+           <MenuModal>
+             <MenuModal.Open />
+             <MenuModal.Window />
+           </MenuModal>
          <Link href={'/'} className="hover:bg-[#f68b1e] sm:hover:bg-transparent">
          <HeaderIcon src={'/jumia-logo.png'} />
         </Link>
-        </>   
-    )}
+        
              </div>
  
               {/*Input*/}
@@ -95,7 +95,7 @@ export default function Header() {
 
         {/* Bottom */}
         <div className="lg:bg-[#e8c0a7] w-full flex py-4 lg:h-[400px] space-x-3 lg:px-6 xl:px-12">
-           <NavBar setShow={setShow} show={show}/>
+           <NavBar/>
           <SlideShow />
             <div className="flex-col h-full hidden xl:flex min-w-[218px] justify-between">
               <div className="flex flex-col bg-white rounded-md p-4 space-y-2">
