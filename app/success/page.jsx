@@ -1,17 +1,13 @@
-import { getServerSession } from 'next-auth/next'
-import { options } from '../api/auth/[...nextauth]/options'
+import OrderSuccess from "../components/OrderSuccess";
 
+const gsmarena = require('gsmarena-api');
 
 export default async function page(){
 
-  const session = await getServerSession(options)
-  if(!session)return null
+  const deals = await gsmarena.deals.getDeals();
+
+  
   return (
-  <p>{session?.user?.name} {session?.user?.email} thanks for patronising us</p>
+  <OrderSuccess deals={deals} />
   )
   }
-// export default function page() {
-//   return (
-//     <div>thanks for patronising us</div>
-//   )
-// }

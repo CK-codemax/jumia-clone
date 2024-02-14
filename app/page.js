@@ -1,5 +1,4 @@
 import { getServerSession } from 'next-auth/next'
-import ProductThumbnail from './components/ProductThumbnail';
 import ProductView from './components/ProductView';
 import { options } from './api/auth/[...nextauth]/options';
 
@@ -14,5 +13,6 @@ export default async function Home() {
   return(<>
         <p>{session?.user?.name} welcome to new jumia</p>
         <ProductView products={deals} />
+       
   </>)
 }

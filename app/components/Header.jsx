@@ -67,12 +67,12 @@ export default function Header() {
  
  
               <div className="flex space-x-3">
-              <div onClick={signIn} className="flex  lg:hover:text-[#f68b1e] items-center space-x-2">
-                 <HeaderIcon Icon={UserIcon} title={'account'} />
+              <Link href={'/orders'} className="flex  lg:hover:text-[#f68b1e] items-center space-x-2">
+                 <HeaderIcon Icon={UserIcon} title={'orders'} />
                  <ChevronDownIcon className="hidden lg:inline-flex h-5"/>
-               </div>
+               </Link>
  
-               <div onClick={signOut} className=" hidden lg:flex hover:text-[#f68b1e] items-center space-x-2">
+               <div className=" hidden lg:flex hover:text-[#f68b1e] items-center space-x-2">
                  <HeaderIcon Icon={QuestionMarkCircleIcon} title={'help'} />
                  <ChevronDownIcon className="h-5"/>
                </div>

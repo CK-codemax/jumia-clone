@@ -7,6 +7,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
 import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
+import ShowSuccess from "./OrderList";
 
 
 
@@ -56,81 +57,33 @@ export default function CartList({list}) {
         console.log(result, result.session.id)
 
 
-      // const checkoutSession = axios.post('/api/create-checkout-session',
-      // {
-      //   cartItems : cartItems,
-      //   email : session.user.email,
-      // })
+     
 
       const resultNext = await stripe.redirectToCheckout({
         sessionId: result.session.id
       })
 
-      //  if(result.error)alert(result.error.message)
-
-      //  fetch('/api/create-checkout-session', {
-      //   method: 'POST',
-      //   body: JSON.stringify({
-      //       cartItems : cartItems,
-      //        email : session.user.email
-      //      }),
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // }).then(response => response.json())
-      //   .then((data) => console.log(data))
+    
       
     }
- //console.log(cart, cartItems)
-
- ///////////
-
-// async function getDocsx(id){
-//   const userDocRef = doc(db, 'users', id);
-//   const ordersColRef = collection(userDocRef, 'orders');
-//   const stripeOrders = await getDocs(ordersColRef);
  
-//   stripeOrders.docs.forEach((orderDoc) => {
-//     console.log(`Order ID: ${orderDoc.id}, Order Data: ${orderDoc.data()}`);
-//   });
-// }
 
-// getDocsx(session?.user.email)
-
-// async function getDocsx(id){
-//   const userDocRef = collection(db, 'users', id)
+// async function getUsers(){
+//   const userDocRef = doc(db, 'users', `${session?.user?.email}`)
 //   const ordersColRef = collection(userDocRef, 'orders');
 //   const snapshots = await getDocs(ordersColRef)
- 
 
-//   const docs = snapshots.docs.map((doc) => {
-//     const data = doc.data();
-//     data.id = doc.id
-    
+//   const datas = snapshots.docs.map((doc) => {
+//     const data = doc.data(); // Correct usage
+//     data.id = doc.id;
 //     return data;
 //   })
 
-//   console.log(docs)
+//   console.log(datas)
+ 
 // }
 
-// getDocsx(session?.user.email)
-
-async function getUsers(){
-  const userDocRef = doc(db, 'users', `${session?.user?.email}`)
-  const ordersColRef = collection(userDocRef, 'orders');
-  const snapshots = await getDocs(ordersColRef)
-
-  const datas = snapshots.docs.map((doc) => {
-    const data = doc.data(); // Correct usage
-    data.id = doc.id;
-    return data;
-  })
-
-  console.log(datas)
- 
-}
-
-getUsers()
+// getUsers()
  
   return (
   <div className="flex flex-col lg:flex-row lg:px-10 py-2 lg:py-6 bg-gray-300 w-full lg:space-x-3 items-start">
@@ -179,6 +132,7 @@ getUsers()
         <p className="text-xs text-gray-600">Free return within 7 days for ALL eligible items Details</p>
     </div>
  </div>
+
   </div>
   )
 }
