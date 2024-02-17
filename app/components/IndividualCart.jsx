@@ -5,6 +5,7 @@ import Link from "next/link";
 import Button from "./Button";
 import { useDispatch, useSelector } from "react-redux";
 import { decreaseItemQuantity, deleteItem, increaseItemQuantity } from "../redux/cartSlice";
+import toast from "react-hot-toast";
 
 export default function IndividualCart({item}) {
   const cart = useSelector(state=>state.cart)
@@ -14,14 +15,18 @@ export default function IndividualCart({item}) {
 
   function handleDeleteCart(){
    dispatch(deleteItem(item.url))
+   toast.error('Product deleted from cart!') 
   }
 
   function handleIncreaseQuantity(){
     dispatch(increaseItemQuantity(item.url))
+    toast.success(`Product increased to ${cartItem?.quantity + 1} in your cart!`);
    }
 
    function handleDecreaseQuantity(){
     dispatch(decreaseItemQuantity(item.url))
+    cartItem?.quantity === 1 ? toast.error('Product removed from cart!') : toast.error(`Product dereased to ${cartItem?.quantity - 1} in your cart!`);
+  
    }
   return (
     <div className="w-full px-2 lg:px-4 py-2 border-b flex flex-col" >

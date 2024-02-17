@@ -6,8 +6,12 @@ import Image from "next/image"
 import { useDispatch, useSelector } from "react-redux"
 import { addItem, decreaseItemQuantity, increaseItemQuantity } from "../redux/cartSlice"
 import Button from "./Button"
+import toast from "react-hot-toast"
 
 export default function IndividualProduct({device, deal}) {
+  //Without the state persist, this method is correct
+  //const cart = useSelector(state => state.cart.cart)
+
  const cart = useSelector(state=>state.cart)
  const cartItem = cart.find((cartItem) => cartItem.url === deal.url) 
 
@@ -20,15 +24,20 @@ export default function IndividualProduct({device, deal}) {
     quantity : 1,}
 
     dispatch(addItem(newItem))
+    toast.success('Product added to cart!');
   }
 
   function handleIncreaseQuantity(){
     dispatch(increaseItemQuantity(deal.url))
+    toast.success(`Product increased to ${cartItem?.quantity + 1} in your cart!`);
    }
 
    function handleDecreaseQuantity(){
     dispatch(decreaseItemQuantity(deal.url))
-   }
+ 
+  cartItem?.quantity === 1 ? toast.error('Product removed from cart!') : toast.error(`Product dereased to ${cartItem?.quantity - 1} in your cart!`);
+  
+}
 
     console.log(device, deal)
   return (

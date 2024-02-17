@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 import ShowSuccess from "./OrderList";
+import toast from "react-hot-toast";
 
 
 
@@ -24,7 +25,8 @@ export default function CartList({list}) {
       }
     })
 
-
+   //Without the state persist, this method is correct
+  //const cart = useSelector(state => state.cart.cart)
     const cart = useSelector(state=>state.cart)
     const cartItems = cart.map((cartItem) => ({...list.find((item) => item.url ===  cartItem.url), quantity : cartItem.quantity,}))
     const totalPrice = cart.map((cartItem) => +(list.find((item) => item.url === cartItem.url)?.deal.price * cartItem.quantity)).reduce((acc, cur) => acc + cur, 0)
@@ -33,6 +35,7 @@ export default function CartList({list}) {
 
     function handleClearCart(){
       dispatch(clearCart())
+      toast.success('Cart cleared successful');
     }
     
     async function createCheckoutSession(){
@@ -66,24 +69,6 @@ export default function CartList({list}) {
     
       
     }
- 
-
-// async function getUsers(){
-//   const userDocRef = doc(db, 'users', `${session?.user?.email}`)
-//   const ordersColRef = collection(userDocRef, 'orders');
-//   const snapshots = await getDocs(ordersColRef)
-
-//   const datas = snapshots.docs.map((doc) => {
-//     const data = doc.data(); // Correct usage
-//     data.id = doc.id;
-//     return data;
-//   })
-
-//   console.log(datas)
- 
-// }
-
-// getUsers()
  
   return (
   <div className="flex flex-col lg:flex-row lg:px-10 py-2 lg:py-6 bg-gray-300 w-full lg:space-x-3 items-start">
