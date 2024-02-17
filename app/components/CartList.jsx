@@ -25,7 +25,7 @@ export default function CartList({list}) {
     })
 
 
-    const cart = useSelector(state=>state.cart.cart)
+    const cart = useSelector(state=>state.cart)
     const cartItems = cart.map((cartItem) => ({...list.find((item) => item.url ===  cartItem.url), quantity : cartItem.quantity,}))
     const totalPrice = cart.map((cartItem) => +(list.find((item) => item.url === cartItem.url)?.deal.price * cartItem.quantity)).reduce((acc, cur) => acc + cur, 0)
     

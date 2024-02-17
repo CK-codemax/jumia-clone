@@ -21,7 +21,9 @@ export default function Header() {
       redirect('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
     }
   })
-  const cart = useSelector(state=>state.cart.cart)
+  const cart = useSelector(state => state.cart)
+  //Without the state persist, this method is correct
+  //const cart = useSelector(state => state.cart.cart)
 
 
   return (

@@ -8,7 +8,7 @@ import { addItem, decreaseItemQuantity, increaseItemQuantity } from "../redux/ca
 import Button from "./Button"
 
 export default function IndividualProduct({device, deal}) {
- const cart = useSelector(state=>state.cart.cart)
+ const cart = useSelector(state=>state.cart)
  const cartItem = cart.find((cartItem) => cartItem.url === deal.url) 
 
 

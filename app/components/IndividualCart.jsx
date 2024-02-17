@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { decreaseItemQuantity, deleteItem, increaseItemQuantity } from "../redux/cartSlice";
 
 export default function IndividualCart({item}) {
-  const cart = useSelector(state=>state.cart.cart)
+  const cart = useSelector(state=>state.cart)
   const cartItem = cart.find((product) => product.url === item.url )
 
   const dispatch = useDispatch()
