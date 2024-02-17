@@ -21,11 +21,13 @@ export default function Header() {
       redirect('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
     }
   })
-  const cart = useSelector(state => state.cart)
+  const storeCart = useSelector(state => state.cart)
+  //because we are using combined reducers
+  const cart = storeCart.cart
   //Without the state persist, this method is correct
   //const cart = useSelector(state => state.cart.cart)
 
-
+ //console.log(cart)
   return (
     <header className={`flex flex-col`}>
         {/*Top*/}

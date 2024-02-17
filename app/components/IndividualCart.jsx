@@ -8,7 +8,11 @@ import { decreaseItemQuantity, deleteItem, increaseItemQuantity } from "../redux
 import toast from "react-hot-toast";
 
 export default function IndividualCart({item}) {
-  const cart = useSelector(state=>state.cart)
+  const storeCart = useSelector(state => state.cart)
+  //because we are using combined reducers
+  const cart = storeCart.cart
+  //Without the state persist, this method is correct
+  //const cart = useSelector(state => state.cart.cart)
   const cartItem = cart.find((product) => product.url === item.url )
 
   const dispatch = useDispatch()

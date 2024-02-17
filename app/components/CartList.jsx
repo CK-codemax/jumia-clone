@@ -25,9 +25,11 @@ export default function CartList({list}) {
       }
     })
 
-   //Without the state persist, this method is correct
-  //const cart = useSelector(state => state.cart.cart)
-    const cart = useSelector(state=>state.cart)
+    const storeCart = useSelector(state => state.cart)
+    //because we are using combined reducers
+    const cart = storeCart.cart
+    //Without the state persist, this method is correct
+    //const cart = useSelector(state => state.cart.cart)
     const cartItems = cart.map((cartItem) => ({...list.find((item) => item.url ===  cartItem.url), quantity : cartItem.quantity,}))
     const totalPrice = cart.map((cartItem) => +(list.find((item) => item.url === cartItem.url)?.deal.price * cartItem.quantity)).reduce((acc, cur) => acc + cur, 0)
     

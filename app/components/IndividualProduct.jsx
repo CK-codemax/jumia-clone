@@ -9,10 +9,11 @@ import Button from "./Button"
 import toast from "react-hot-toast"
 
 export default function IndividualProduct({device, deal}) {
+  const storeCart = useSelector(state => state.cart)
+  //because we are using combined reducers
+  const cart = storeCart.cart
   //Without the state persist, this method is correct
   //const cart = useSelector(state => state.cart.cart)
-
- const cart = useSelector(state=>state.cart)
  const cartItem = cart.find((cartItem) => cartItem.url === deal.url) 
 
 
