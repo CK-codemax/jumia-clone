@@ -28,3 +28,18 @@ export const getHistory = (history, cur) => {
 
     return newHistory
   }
+
+  export function currencySymbolToWords(sys){
+    if(sys === '$'){
+      return 'usd'
+    }
+    if(sys === '₦'){
+      return 'ngn'
+    }
+    if(sys === '€'){
+      return 'eur'
+    }
+    if(sys === '£'){
+      return 'gbp'
+    }
+  }

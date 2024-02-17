@@ -9,13 +9,13 @@ export async function POST(response){
     const data = await response.json()
     
 
-    const { cartItems : items, email } = data
+    const { cartItems : items, email, currency } = data
     console.log(items, email)
 
    
     const transformedItems = items.map((item) => ({
         price_data: {
-          currency: 'gbp',
+          currency: currency,
           unit_amount: item.deal.price * 100,
           product_data: {
             name: item.name,
@@ -40,9 +40,9 @@ export async function POST(response){
         shipping_address_collection : {
           allowed_countries : ['GB', 'US', 'CA', 'NG',],
         },
-      shipping_options : [ {
-        shipping_rate : 'shr_1OeoDYL6zEQMXk8ImT2SYRsp'
-      },],
+      // shipping_options : [ {
+      //   shipping_rate : 'shr_1OeoDYL6zEQMXk8ImT2SYRsp'
+      // },],
         mode : 'payment',
         success_url : `${process.env.HOST}/success`,
         cancel_url : `${process.env.HOST}/checkout`,
@@ -147,4 +147,3 @@ export async function POST(response){
 //     res.status(405).json({error : 'Method not allowed'});
 //   }
 // }
-

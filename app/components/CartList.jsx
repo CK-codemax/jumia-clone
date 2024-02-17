@@ -9,6 +9,7 @@ import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 import ShowSuccess from "./OrderList";
 import toast from "react-hot-toast";
+import { currencySymbolToWords } from "../utils/currencyConverters";
 
 
 
@@ -28,6 +29,8 @@ export default function CartList({list}) {
     const storeCart = useSelector(state => state.cart)
     //because we are using combined reducers
     const cart = storeCart.cart
+    const userCurrency = useSelector(state => state.currency)
+
     //Without the state persist, this method is correct
     //const cart = useSelector(state => state.cart.cart)
     const cartItems = cart.map((cartItem) => ({...list.find((item) => item.url ===  cartItem.url), quantity : cartItem.quantity,}))
@@ -52,7 +55,7 @@ export default function CartList({list}) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                cartItems, email : session.user.email,
+                cartItems, email : session.user.email, currency : currencySymbolToWords(userCurrency),
             })
         })
        
