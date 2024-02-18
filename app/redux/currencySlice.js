@@ -1,7 +1,7 @@
 const { createSlice } = require("@reduxjs/toolkit")
 
 
-const initialState = '₦'
+const initialState = '€'
 
 const currencySlice = createSlice({
     name : 'currency',
@@ -18,7 +18,8 @@ const currencySlice = createSlice({
         // },
 
         changeCurrency(state, action){
-          state.currency = action.payload
+          //state = action.payload
+          return action.payload;
         }
 
     }

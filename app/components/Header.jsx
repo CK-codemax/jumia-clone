@@ -10,8 +10,10 @@ import NavBar from "./NavBar";
 import InputBox from "./InputBox";
 import { useState } from "react";
 import Categories from "./Categories";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MenuModal from './MenuModal';
+import toast from 'react-hot-toast';
+import { changeCurrency } from '../redux/currencySlice';
 
 
 export default function Header() {
@@ -24,10 +26,19 @@ export default function Header() {
   const storeCart = useSelector(state => state.cart)
   //because we are using combined reducers
   const cart = storeCart.cart
+  const userCurrency = useSelector(state => state.currency)
   //Without the state persist, this method is correct
   //const cart = useSelector(state => state.cart.cart)
 
  //console.log(cart)
+
+ const dispatch = useDispatch()
+
+  function handleChangeCurrency(cur){
+   
+    dispatch(changeCurrency(cur))
+    toast.success(`Currency changed to ${cur}`);
+  }
   return (
     <header className={`flex flex-col`}>
         {/*Top*/}
@@ -44,7 +55,13 @@ export default function Header() {
         <p>{session?.user.email}</p>
         <img src={session?.user.image} alt='ochuko' /> 
       </>} */}
-
+ 
+       <div className='flex items-center space-x-5'>
+       <div onClick={() => handleChangeCurrency('$')} className='px-4 py-2 text-white bg-gray-700 rounded-md'>USD</div>
+       <div onClick={() => handleChangeCurrency('€')}  className='px-4 py-2 text-white bg-gray-700 rounded-md'>EUR</div>
+       <div onClick={() => handleChangeCurrency('£')} className='px-4 py-2 text-white bg-gray-700 rounded-md'>GBP</div>
+       </div>
+      
         <div className="w-full relative">
 
        <div className="w-full bg-gray-200 h-6 hidden lg:block" />

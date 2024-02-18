@@ -1,14 +1,27 @@
 const EURUSD = 1.1;
 const GBPUSD = 1.2;
 const USDUSD = 1;
+const EURGBP = 1.05
 
 
 export function correctPrice(givenCur, changeToCur, amount){
   if(givenCur === '€' && changeToCur === '$'){
-    return Math.ceil(amount * EURUSD)
+    return Math.ceil(+amount * EURUSD)
+  }
+  if(givenCur === '€' && changeToCur === '£'){
+    return Math.ceil(+amount * EURGBP)
+  }
+  if(givenCur === '£' && changeToCur === '€'){
+    return Math.ceil(+amount / EURGBP)
+  }
+  if(givenCur === '$' && changeToCur === '€'){
+    return Math.ceil(+amount / EURUSD)
   }
   if(givenCur === '£' && changeToCur === '$'){
-    return Math.ceil(amount * GBPUSD)
+    return Math.ceil(+amount * GBPUSD)
+  }
+  if(givenCur === '$' && changeToCur === '£'){
+    return Math.ceil(+amount / GBPUSD)
   }
   if(givenCur ===  changeToCur){
     return amount

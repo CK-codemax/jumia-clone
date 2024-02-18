@@ -3,9 +3,8 @@
 import { useSelector } from "react-redux";
 import ProductThumbnail from "./ProductThumbnail"
 import { correctPrice, getHistory } from "../utils/currencyConverters";
-import DeviceThumbNail from "./DeviceThumbNail";
 
-export default function ProductView({products, newDeals}) {
+export default function ProductView({products}) {
   const userCurrency = useSelector(state => state.currency) //returns the exact currency
  // const userCurrency = currency.currency // now we access currency from this object, using first and second in our combined reducer store
     const productsToUse = products?.map((fullDeal) => {
@@ -23,14 +22,11 @@ export default function ProductView({products, newDeals}) {
       };
     return fixedToCurrency
     })
-    console.log(products, newDeals, productsToUse, userCurrency)
+    console.log(products, productsToUse)
   return (
     <>
    <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
-   {products.map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
-
-   {newDeals.map((device) => <DeviceThumbNail key={device.id} name={device.name} src={device.img} description={device.description}  />)}
-   
+   {productsToUse.map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
    </div>
     </>
   )

@@ -9,7 +9,7 @@ import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 import ShowSuccess from "./OrderList";
 import toast from "react-hot-toast";
-import { currencySymbolToWords } from "../utils/currencyConverters";
+import { correctPrice, currencySymbolToWords, getHistory } from "../utils/currencyConverters";
 
 
 
@@ -33,9 +33,26 @@ export default function CartList({list}) {
 
     //Without the state persist, this method is correct
     //const cart = useSelector(state => state.cart.cart)
+    const cartToUse = cart.map((fullDeal) => {
+   
+  
+      const fixedToCurrency = {
+        ...fullDeal,
+        history : getHistory(fullDeal.history, userCurrency),
+        deal: {
+          ...fullDeal.deal,
+          currency: userCurrency,
+          discount: correctPrice(fullDeal.deal.currency, userCurrency, fullDeal.deal.discount),
+          price : correctPrice(fullDeal.deal.currency, userCurrency, fullDeal.deal.price),
+        }
+      };
+    return fixedToCurrency
+    })
+     
+
     const cartItems = cart.map((cartItem) => ({...list.find((item) => item.url ===  cartItem.url), quantity : cartItem.quantity,}))
     const totalPrice = cart.map((cartItem) => +(list.find((item) => item.url === cartItem.url)?.deal.price * cartItem.quantity)).reduce((acc, cur) => acc + cur, 0)
-    
+
     const dispatch = useDispatch()
 
     function handleClearCart(){
@@ -74,7 +91,7 @@ export default function CartList({list}) {
     
       
     }
- 
+   console.log(cart, cartToUse)
   return (
   <div className="flex flex-col lg:flex-row lg:px-10 py-2 lg:py-6 bg-gray-300 w-full lg:space-x-3 items-start">
       <div className="flex lg:px-2 bg-white lg:rounded-md flex-col w-full py-3">
