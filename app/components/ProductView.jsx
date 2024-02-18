@@ -3,6 +3,7 @@
 import { useSelector } from "react-redux";
 import ProductThumbnail from "./ProductThumbnail"
 import { correctPrice, getHistory } from "../utils/currencyConverters";
+import DeviceThumbNail from "./DeviceThumbNail";
 
 export default function ProductView({products, newDeals}) {
   const userCurrency = useSelector(state => state.currency) //returns the exact currency
@@ -27,6 +28,9 @@ export default function ProductView({products, newDeals}) {
     <>
    <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
    {products.map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
+
+   {newDeals.map((device) => <DeviceThumbNail key={device.id} name={device.name} src={device.img} description={device.description}  />)}
+   
    </div>
     </>
   )
