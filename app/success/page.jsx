@@ -1,13 +1,20 @@
+'use client'
+
+import { useDispatch } from "react-redux";
 import OrderSuccess from "../components/OrderSuccess";
+import { clearCart } from "../redux/cartSlice";
+import { useEffect } from "react";
 
-const gsmarena = require('gsmarena-api');
 
-export default async function page(){
+export default function page(){
+ 
+  const dispatch = useDispatch();
 
-  const deals = await gsmarena.deals.getDeals();
+  useEffect(() => {
+    dispatch(clearCart());
+  }, [dispatch]);
 
-  
   return (
-  <OrderSuccess deals={deals} />
+  <OrderSuccess />
   )
   }

@@ -6,18 +6,25 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { formatAmount } from "../utils/helpers";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../redux/cartSlice";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 
-export default function OrderSuccess({deals}) {
+export default function OrderSuccess() {
  
 
     const [order, setOrder] = useState(null)
     const { data : session } =  useSession()
+    // const dispatch = useDispatch()
+    // dispatch(clearCart())
+
+
 
     useEffect(() => {
         async function getOrder(){
+        
           const userDocRef = doc(db, 'users', `${session?.user?.email}`)
           const ordersColRef = collection(userDocRef, 'orders');
           const snapshots = await getDocs(ordersColRef)
@@ -55,12 +62,12 @@ export default function OrderSuccess({deals}) {
       }, [session])
     
       console.log(order)
-      const items = deals?.filter((deal) => order?.images?.find((image) => image === deal.img))
+      // const items = deals?.filter((deal) => order?.images?.find((image) => image === deal.img))
 
-      //correct this with discount later
+      // //correct this with discount later
 
-      const realItems = items?.filter((item) => order?.items?.find((orderItem) => orderItem.description === item.name && item.deal.price === (orderItem.amount_total / (100 * orderItem.quantity))))
-      console.log(items, realItems)
+      // const realItems = items?.filter((item) => order?.items?.find((orderItem) => orderItem.description === item.name && item.deal.price === (orderItem.amount_total / (100 * orderItem.quantity))))
+      // console.log(items, realItems)
   return (
     <div>
         <div className="flex flex-col w-full items-center space-y-1 justify-start">

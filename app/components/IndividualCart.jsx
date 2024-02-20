@@ -7,31 +7,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { decreaseItemQuantity, deleteItem, increaseItemQuantity } from "../redux/cartSlice";
 import toast from "react-hot-toast";
 
-export default function IndividualCart({item}) {
+export default function IndividualCart({item, list}) {
   const storeCart = useSelector(state => state.cart)
   //because we are using combined reducers
   const cart = storeCart.cart
   //Without the state persist, this method is correct
   //const cart = useSelector(state => state.cart.cart)
-  const cartItem = cart.find((product) => product.url === item.url )
+
+  const itemStillAvailable = Boolean(list.filter(deal => deal.url === item.url).length);
 
   const dispatch = useDispatch()
 
   function handleDeleteCart(){
+    if(!itemStillAvailable){
+      toast.error('Product no longer available. Please checkout');
+    }else{
    dispatch(deleteItem(item.url))
    toast.error('Product deleted from cart!') 
+    }
   }
 
   function handleIncreaseQuantity(){
+    if(!itemStillAvailable){
+      toast.error('Product no longer available. Please checkout');
+    }else{
     dispatch(increaseItemQuantity(item.url))
-    toast.success(`Product increased to ${cartItem?.quantity + 1} in your cart!`);
+    toast.success(`Product increased to ${item?.quantity + 1} in your cart!`);
+    }
    }
 
    function handleDecreaseQuantity(){
+    if(!itemStillAvailable){
+      toast.error('Product no longer available. Please checkout');
+    }else{
     dispatch(decreaseItemQuantity(item.url))
-    cartItem?.quantity === 1 ? toast.error('Product removed from cart!') : toast.error(`Product dereased to ${cartItem?.quantity - 1} in your cart!`);
-  
+    item?.quantity === 1 ? toast.error('Product removed from cart!') : toast.error(`Product dereased to ${item?.quantity - 1} in your cart!`);
+    }
    }
+
+   console.log(list, item, itemStillAvailable)
   return (
     <div className="w-full px-2 lg:px-4 py-2 border-b flex flex-col" >
         
@@ -70,7 +84,7 @@ export default function IndividualCart({item}) {
      -{Math.ceil((+item.deal.discount) / ((+item.deal.price) + (+item.deal.discount)) * 100)}%
   </div>  
   </div>
-  <p className="mt-2 text-gray-700">{item.deal.currency}{Math.ceil(+item.deal.price * +cartItem.quantity)}</p>
+  <p className="mt-2 text-gray-700">{item.deal.currency}{Math.ceil(+item.deal.price * +item.quantity)}</p>
     
   </div>
 
@@ -78,14 +92,14 @@ export default function IndividualCart({item}) {
   </div>
   <div className="flex items-center p-2 w-full justify-between">
     <div className="flex items-center space-x-3 text-[#f68b1e]">
-        <Button onClick={handleDeleteCart} type={'remove'} />
+        <Button available={itemStillAvailable} onClick={handleDeleteCart} type={'remove'} />
       
     </div>
 
      <div className="flex items-center space-x-3">
-     <Button onClick={handleDecreaseQuantity} type={'minus'} />
-     <span>{cartItem.quantity}</span>
-     <Button onClick={handleIncreaseQuantity} type={'add'} />
+     <Button available={itemStillAvailable} onClick={handleDecreaseQuantity} type={'minus'} />
+     <span>{item.quantity}</span>
+     <Button available={itemStillAvailable} onClick={handleIncreaseQuantity} type={'add'} />
         
      </div>
   </div>

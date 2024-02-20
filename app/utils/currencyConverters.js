@@ -28,6 +28,31 @@ export function correctPrice(givenCur, changeToCur, amount){
   }
 }
 
+export function correctShipping(givenCur, changeToCur, amount){
+  if(givenCur === '€' && changeToCur === '$'){
+    return (+amount * EURUSD).toFixed(2)
+  }
+  if(givenCur === '€' && changeToCur === '£'){
+    return (+amount * EURGBP).toFixed(2)
+  }
+  if(givenCur === '£' && changeToCur === '€'){
+    return (+amount / EURGBP).toFixed(2)
+  }
+  if(givenCur === '$' && changeToCur === '€'){
+    return (+amount / EURUSD).toFixed(2)
+  }
+  if(givenCur === '£' && changeToCur === '$'){
+    return (+amount * GBPUSD).toFixed(2)
+  }
+  if(givenCur === '$' && changeToCur === '£'){
+    return (+amount / GBPUSD).toFixed(2)
+  }
+  if(givenCur ===  changeToCur){
+    return amount
+  }
+}
+
+
 export const getHistory = (history, cur) => {
     const newHistory = history.map((his) => {
         const newHis = {

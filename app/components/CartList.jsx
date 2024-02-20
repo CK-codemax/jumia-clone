@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import IndividualCart from "./IndividualCart";
 import { clearCart } from "../redux/cartSlice";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
 import { collection, doc, getDocs } from "firebase/firestore";
@@ -10,6 +10,7 @@ import { db } from "@/firebase";
 import ShowSuccess from "./OrderList";
 import toast from "react-hot-toast";
 import { correctPrice, currencySymbolToWords, getHistory } from "../utils/currencyConverters";
+import { formatAmount } from "../utils/helpers";
 
 
 
@@ -18,7 +19,6 @@ const axios = require('axios');
 
 export default function CartList({list}) {
  
-    const router = useRouter()
     const { data : session } = useSession({
       required : true,
       onUnauthenticated(){
@@ -50,9 +50,8 @@ export default function CartList({list}) {
     })
      
 
-    const cartItems = cart.map((cartItem) => ({...list.find((item) => item.url ===  cartItem.url), quantity : cartItem.quantity,}))
-    const totalPrice = cart.map((cartItem) => +(list.find((item) => item.url === cartItem.url)?.deal.price * cartItem.quantity)).reduce((acc, cur) => acc + cur, 0)
-
+    const totalPrice = cartToUse.map((cartItem) => cartItem.deal.price * cartItem.quantity).reduce((acc, cur) => acc + cur, 0)
+    
     const dispatch = useDispatch()
 
     function handleClearCart(){
@@ -61,7 +60,6 @@ export default function CartList({list}) {
     }
     
     async function createCheckoutSession(){
-      
         const stripe = await asyncStripe;
 
 
@@ -72,23 +70,22 @@ export default function CartList({list}) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                cartItems, email : session.user.email, currency : currencySymbolToWords(userCurrency),
+                cartItems : cartToUse, email : session.user.email, currency : currencySymbolToWords(userCurrency),
             })
         })
        
    
       
         const result = await res.json()
-        console.log(result, result.session.id)
-
-
+        console.log(result)
+      
+       
+     
      
 
       const resultNext = await stripe.redirectToCheckout({
         sessionId: result.session.id
       })
-
-    
       
     }
    console.log(cart, cartToUse)
@@ -96,17 +93,17 @@ export default function CartList({list}) {
   <div className="flex flex-col lg:flex-row lg:px-10 py-2 lg:py-6 bg-gray-300 w-full lg:space-x-3 items-start">
       <div className="flex lg:px-2 bg-white lg:rounded-md flex-col w-full py-3">
     <div className="flex items-center pb-4 border-b justify-between">
-    <p className="font-semibold py-2 ml-4 text-lg">Cart ({cart.length})</p>
-       {cart.length ? (
+    <p className="font-semibold py-2 ml-4 text-lg">Cart ({cartToUse.length})</p>
+       {cartToUse.length ? (
          <button onClick={handleClearCart} className=" text-white mr-4 lg:mr-0 py-2 text-center px-3 rounded-md bg-[#f68b1e]">
          <span className="uppercase font-semibold">clear cart</span>
        </button>
        ) : null }
     </div>
-        {cartItems.map((item) => <IndividualCart key={item.url} item={item} />)}
+        {cartToUse.map((item) => <IndividualCart key={item.url} item={item} list={list}/>)}
     </div>
 
-   {cart.length > 0 ? (
+   {cartToUse.length > 0 ? (
      <div className="flex mt-3 w-full lg:hidden items-center space-x-1">
      <button  role="link" onClick={createCheckoutSession}  className="mt-5 mx-auto text-white py-2 text-center w-[90%] rounded-md bg-[#f68b1e]">
          <span className="uppercase font-semibold">checkout</span>
@@ -120,12 +117,12 @@ export default function CartList({list}) {
        <div className="flex border-b py-2 space-y-3 w-full flex-col items-start">
         <div className="flex w-full justify-between items-start">
             <p className="capitalize font-semibold">subtotal</p>
-            <p className="font-semibold">{Math.ceil(totalPrice)}</p>
+            <p className="font-semibold">{formatAmount(totalPrice, currencySymbolToWords(userCurrency))}</p>
         </div>
         <p className="text-xs text-gray-600">Delivery fees not included yet.</p>
        </div>
 
-    {cart.length > 0 ? (
+    {cartToUse.length > 0 ? (
       
       <button role="link" onClick={createCheckoutSession} className="mt-5 mx-auto text-white py-2 text-center w-[90%] rounded-md bg-[#f68b1e]">
       <span className="uppercase font-semibold">checkout</span>
