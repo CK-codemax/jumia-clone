@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 export default function Order({id, amount, shipping, items, images, timestamp}) {
   return (
@@ -24,7 +25,7 @@ export default function Order({id, amount, shipping, items, images, timestamp}) 
 
         <div className="p-5 sm:p-10">
             <div className="flex space-x-6 overflow-x-auto">
-                {images.map((image) => <img className="h-20 object-contain sm:h-32" src={image} key={image} alt="order-images" />)}
+                {images.map((image) => <Image className="h-20 object-contain sm:h-32" src={image} width={500} height={500} key={image} alt="order-images" />)}
             </div>
         </div>
     </div>

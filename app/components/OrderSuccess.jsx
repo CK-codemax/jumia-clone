@@ -80,7 +80,7 @@ export default function OrderSuccess() {
         <p>{order?.items.length > 1 ? `${order?.items.length} items` : `${order?.items.length} item`}</p>
         <p className="uppercase">{formatAmount(order?.amount)} total {order?.amount_shipping ? ` + ${formatAmount(order?.amount_shipping)} shipping` : null}</p>
        <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
-           {order?.images?.map((image) => <Image src={image} alt="product-image" width={500} height={300} className="object-cover" placeholder="blur" blurDataURL="/jumia_img_loader.png" />)}
+           {order?.images?.map((image, i) => <Image key={image + i} src={image} alt="product-image" width={500} height={300} className="object-cover" placeholder="blur" blurDataURL="/jumia_img_loader.png" />)}
         </div>
        </div>
 
