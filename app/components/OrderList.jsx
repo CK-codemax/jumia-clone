@@ -16,7 +16,7 @@ export default function OrderList() {
   const { data : session } =  useSession({
     required : true,
     onUnauthenticated(){
-      redirect('http://localhost:3000/api/auth/signin/google')
+      redirect('/api/auth/signin/google')
     }
   })
 
