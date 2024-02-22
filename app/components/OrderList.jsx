@@ -13,15 +13,15 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 export default function OrderList() {
   const [orders, setOrders] = useState([])
-  // const { data : session } =  useSession({
-  //   required : true,
-  //   onUnauthenticated(){
-  //     redirect('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
-  //   }
-  // })
+  const { data : session } =  useSession({
+    required : true,
+    onUnauthenticated(){
+      redirect('http://localhost:3000/api/auth/signin/google')
+    }
+  })
 
-  const { data : session } =  useSession()
-  if(!session)redirect(`/api/auth/signin/google`)
+  // const { data : session } =  useSession()
+  // if(!session)redirect(`/api/auth/signin/google`)
 
 
   useEffect(() => {
