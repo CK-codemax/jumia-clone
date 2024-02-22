@@ -19,12 +19,9 @@ const axios = require('axios');
 
 export default function CartList({list}) {
  
-    const { data : session } = useSession({
-      required : true,
-      onUnauthenticated(){
-        redirect('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
-      }
-    })
+    const { data : session } = useSession()
+
+    if(!session)redirect(`${process.env.HOST}/api/auth/signin/google`)
 
     const storeCart = useSelector(state => state.cart)
     //because we are using combined reducers
