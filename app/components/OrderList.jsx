@@ -21,7 +21,7 @@ export default function OrderList() {
   // })
 
   const { data : session } =  useSession()
-  if(!session)redirect(`${process.env.HOST}/api/auth/signin/google`)
+  if(!session)redirect(`/api/auth/signin/google`)
 
 
   useEffect(() => {

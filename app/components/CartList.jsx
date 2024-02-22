@@ -21,7 +21,7 @@ export default function CartList({list}) {
  
     const { data : session } = useSession()
 
-    if(!session)redirect(`${process.env.HOST}/api/auth/signin/google`)
+    if(!session)redirect(`/api/auth/signin/google`)
 
     const storeCart = useSelector(state => state.cart)
     //because we are using combined reducers
