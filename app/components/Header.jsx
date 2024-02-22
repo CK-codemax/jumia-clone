@@ -17,12 +17,7 @@ import { changeCurrency } from '../redux/currencySlice';
 
 
 export default function Header() {
-  const { data : session } = useSession({
-    required : true,
-    onUnauthenticated(){
-      redirect('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
-    }
-  })
+  const { data : session } = useSession()
   const storeCart = useSelector(state => state.cart)
   //because we are using combined reducers
   const cart = storeCart.cart

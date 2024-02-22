@@ -26,21 +26,18 @@ const fulfillOrder = async(session) => {
       timestamp : admin.firestore.FieldValue.serverTimestamp(),
 
    })
-   // .then(() => {
-   //    console.log(`SUCCESS : Order ${session.id} has been added to the DB`)
-   // })
+   .then(() => {
+      console.log(`SUCCESS : Order ${session.id} has been added to the DB`)
+   })
 }
 
 export async function POST(request){
-  // console.log(request)
+  console.log(request)
 
-   //  const requestBuffer = await buffer(request.json());
-   //  const payload = requestBuffer.toString();
    const sig = request.headers.get("stripe-signature");
     const payload =await request.text()
- //  console.log(`SIG : ${sig}`)
- //  console.log(`PAYLOAD : ${payload}`)
- //console.log(`PAYLOAD : ${payload.paid}`)
+  console.log(`SIG : ${sig}`)
+  console.log(`PAYLOAD : ${payload}`)
 
    let event;
    //Verify the event came from stripe
@@ -57,27 +54,10 @@ export async function POST(request){
    if(event.type === 'checkout.session.completed'){
       const session = event.data.object;
 
-      //fulfill the order
-   //return fulfillOrder(session).then(() => console.log('success')).catch((err) => console.log(err.message))
    fulfillOrder(session)
-   //return NextResponse.json({message : 'successfully sent'})
+  
    }
    
    return NextResponse.json({message : 'succeeded'})
-//    try {
-//       await fulfillOrder(session);
-//      console.log(`SUCCESS: Order ${session.id} has been fulfilled`);
-//       return NextResponse.json({ status: 'success', message: `Order ${session.id} has been fulfilled` });
-//     } catch (error) {
-//      console.log(`ERROR: Failed to fulfill order`, error);
-//       return NextResponse.json({ status: 'error', message: error.message });
-//     }
-//   }
-}
 
-// export const config = {
-//    api :  {
-//       bodyParser : false,
-//       externalResolver : true,
-//    }
-// }
+}
