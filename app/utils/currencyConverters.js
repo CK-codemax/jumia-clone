@@ -23,6 +23,9 @@ export function correctPrice(givenCur, changeToCur, amount){
   if(givenCur === '$' && changeToCur === '£'){
     return Math.ceil(+amount / GBPUSD)
   }
+  if(givenCur !== '$' || givenCur !== '£' || givenCur === '€'){
+    return Math.ceil(+amount)
+  }
   if(givenCur ===  changeToCur){
     return amount
   }
@@ -54,7 +57,7 @@ export function correctShipping(givenCur, changeToCur, amount){
 
 
 export const getHistory = (history, cur) => {
-    const newHistory = history.map((his) => {
+    const newHistory = history?.map((his) => {
         const newHis = {
             ...his,
             price : correctPrice(his.currency, cur, his.price),

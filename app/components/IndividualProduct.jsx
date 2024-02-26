@@ -8,11 +8,11 @@ import { addItem, decreaseItemQuantity, increaseItemQuantity } from "../redux/ca
 import Button from "./Button"
 import toast from "react-hot-toast"
 import { correctPrice, correctShipping, getHistory } from "../utils/currencyConverters"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 
 export default function IndividualProduct({device, deals, id}) {
   const router = useRouter()
-  const deal = deals.find((deal) => deal.id === id)
+  const deal = deals.find((dealNew) => dealNew.id === id)
   const storeCart = useSelector(state => state.cart)
   //because we are using combined reducers
   const cart = storeCart.cart
@@ -20,6 +20,8 @@ export default function IndividualProduct({device, deals, id}) {
   //Without the state persist, this method is correct
   //const cart = useSelector(state => state.cart.cart)
   const cartItemToUse = cart?.find((cartItemTo) => cartItemTo.url === deal.url) 
+
+  if(!deal || !cartItemToUse)redirect('/')
 
  const cartItem = cartItemToUse && {
   ...cartItemToUse,
@@ -34,9 +36,9 @@ export default function IndividualProduct({device, deals, id}) {
 
 const itemStillAvailable = cartItem ? Boolean(deals.filter(deal => deal.url === cartItem.url).length) : true
 
- const newDeal  = {
+ const newDeal  = deal && {
     ...deal,
-    history : getHistory(deal.history, userCurrency),
+    history : getHistory(deal?.history, userCurrency),
     deal: {
       ...deal.deal,
       currency: userCurrency,
@@ -170,10 +172,10 @@ const itemStillAvailable = cartItem ? Boolean(deals.filter(deal => deal.url === 
 
         <div className="flex items-center ml-4 mt-2 space-x-2 w-full">
         <p className="font-bold text-xl lg:text-2xl">{newDeal?.deal.currency}{Math.ceil(newDeal?.deal.price)}</p>
-        <p className="line-through text-gray-700">{newDeal.deal.currency}{Math.ceil((+newDeal?.deal.price) + (+newDeal?.deal.discount)) }</p>
+        <p className="line-through text-gray-700">{newDeal?.deal.currency}{Math.ceil((+newDeal?.deal.price) + (+newDeal?.deal.discount)) }</p>
   
          <div className="w-[50px] text-[#f68b1e] text-center py-1 bg-[#e8c0a7] rounded-sm">
-            -{Math.ceil((+newDeal.deal.discount) / ((+newDeal?.deal.price) + (+newDeal?.deal.discount)) * 100)}%
+            -{Math.ceil((+newDeal?.deal.discount) / ((+newDeal?.deal.price) + (+newDeal?.deal.discount)) * 100)}%
          </div>  
     
         </div>
@@ -196,7 +198,7 @@ const itemStillAvailable = cartItem ? Boolean(deals.filter(deal => deal.url === 
         )
       }
        <div className=" mt-5 w-full  lg:w-[25%]">
-        <Image className="object-cover mx-auto lg:ml-4 rounded-md w-[50%] h-auto" src={newDeal.deviceImg} width={500} height={300} alt="product-image" placeholder="blur" blurDataURL="/jumia_img_loader.png"/>
+        <Image className="object-cover mx-auto lg:ml-4 rounded-md w-[50%] h-auto" src={newDeal?.deviceImg} width={500} height={300} alt="product-image" placeholder="blur" blurDataURL="/jumia_img_loader.png"/>
     </div>
 
     {!cartItem? (<button onClick={handleAddToCart} className="mt-5 mx-auto flex text-white justify-center w-[90%] items-center lg:ml-4 px-4 py-2 rounded-md bg-[#f68b1e]">
