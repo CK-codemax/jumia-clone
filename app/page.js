@@ -8,6 +8,7 @@ const gsmarena = require('gsmarena-api');
 
 export default async function Home() {
   const deals = await gsmarena.deals.getDeals();
+   const dealsUse = deals.filter((deal) => deal.deal.currency === '$' || deal.deal.currency === '£' || deal.deal.currency === '€')
 
   
    
@@ -15,7 +16,7 @@ export default async function Home() {
    const session = await getServerSession(options)
   return(<>
         <p>{session?.user?.name} welcome to new jumia</p>
-        <ProductView products={deals}/>
+        <ProductView products={dealsUse}/>
        
   </>)
 }
