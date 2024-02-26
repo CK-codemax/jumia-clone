@@ -14,7 +14,7 @@ export default async function Home() {
    const session = await getServerSession(options)
   return(<>
         <p>{session?.user?.name} welcome to new jumia</p>
-        <ProductView products={dealsUse}/>
+        <ProductView products={deals}/>
        
   </>)
 }
