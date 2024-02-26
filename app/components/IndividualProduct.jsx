@@ -21,7 +21,7 @@ export default function IndividualProduct({device, deals, id}) {
   //const cart = useSelector(state => state.cart.cart)
   const cartItemToUse = cart?.find((cartItemTo) => cartItemTo.url === deal.url) 
 
-  if(!deal || !cartItemToUse)redirect('/')
+  if(!deal && !cartItemToUse)redirect('/')
 
  const cartItem = cartItemToUse && {
   ...cartItemToUse,
