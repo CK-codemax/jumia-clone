@@ -61,7 +61,7 @@ export default function CartList({list}) {
 
 
         // Send data to API route 
-        const res = await fetch('http://localhost:3000/api/create-checkout-session', {
+        const res = await fetch(`${process.env.HOST}/api/create-checkout-session`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
