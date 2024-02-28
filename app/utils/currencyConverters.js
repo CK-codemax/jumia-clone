@@ -84,3 +84,18 @@ export const getHistory = (history, cur) => {
       return 'gbp'
     }
   }
+
+  export function currencyWordToSymbols(word){
+    if(word === 'usd'){
+      return '$'
+    }
+    if(word === 'ngn'){
+      return '₦'
+    }
+    if(word === 'eur'){
+      return '€'
+    }
+    if(word === 'gbp'){
+      return '£'
+    }
+  }

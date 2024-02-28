@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Order from "./Order";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
@@ -13,12 +14,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 export default function OrderList() {
   const [orders, setOrders] = useState([])
-  // const { data : session } =  useSession({
-  //   required : true,
-  //   onUnauthenticated(){
-  //     redirect('/api/auth/signin/google')
-  //   }
-  // })
+ 
 
   const { data : session } =  useSession()
   if(!session)redirect(`/api/auth/signin/google`)
@@ -44,6 +40,7 @@ export default function OrderList() {
         amount : order.amount,
         images : order.images,
         shipping : order.amount_shipping,
+        currency : order.currency,
         timestamp : order.timestamp.seconds * 1000,
         items : (
           await stripe.checkout.sessions.listLineItems(order.id, {
@@ -61,11 +58,18 @@ export default function OrderList() {
   }, [session])
 
   console.log(orders)
+
+  if(orders.length < 1)return (
+    <div className="flex items-center flex-col p-5 justify-center space-y-3">
+      <p>You have not ordered any product!</p>
+      <Link className="hover:text-[#f68b1e]" href={'/'}>Please proceed to shopping page</Link>
+    </div>
+  )
  
    return(<div className="max-w-6xl mx-auto">
-    <p>{orders.length > 1 ? `${orders.length} orders` : `${orders.length} order`}</p>
+    <p className="font-semibold">{orders.length > 1 ? `${orders.length} Orders` : `${orders.length} Order`}</p>
     <div className="flex flex-col space-y-6 w-full">
-    {orders?.map(({id, shipping, timestamp, items, images, amount}) => <Order amount={amount} images={images} items={items} timestamp={timestamp} id={id} shipping={shipping} key={id} />)}
+    {orders?.map(({id, shipping, timestamp, items, images, amount, currency}) => <Order currency={currency} amount={amount} images={images} items={items} timestamp={timestamp} id={id} shipping={shipping} key={id} />)}
  
     </div>
    </div>)

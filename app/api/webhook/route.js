@@ -24,7 +24,6 @@ const fulfillOrder = async(session) => {
       images : JSON.parse(session.metadata.images),
       currency : session.currency,
       timestamp : admin.firestore.FieldValue.serverTimestamp(),
-
    })
    .then(() => {
       console.log(`SUCCESS : Order ${session.id} has been added to the DB`)

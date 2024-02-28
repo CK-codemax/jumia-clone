@@ -5,9 +5,9 @@ import { collection, doc, getDocs } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { correctPrice, currencySymbolToWords, currencyWordToSymbols } from "../utils/currencyConverters";
 import { formatAmount } from "../utils/helpers";
-import { useDispatch } from "react-redux";
-import { clearCart } from "../redux/cartSlice";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
@@ -17,9 +17,7 @@ export default function OrderSuccess() {
 
     const [order, setOrder] = useState(null)
     const { data : session } =  useSession()
-    // const dispatch = useDispatch()
-    // dispatch(clearCart())
-
+    const userCurrency = useSelector(state => state.currency)
 
 
     useEffect(() => {
@@ -52,35 +50,54 @@ export default function OrderSuccess() {
           }))
             )
 
-            const order = orders.sort((prev, next) => next.timestamp - prev.timestamp)[0]
+            const order = orders.sort((prev, next) => next.timestamp - prev.timestamp)[0]?.items?.map((item, i) => {
+        
+              const fixedToCurrency = {
+                totalAmount : correctPrice(currencyWordToSymbols(item.price.currency) ,userCurrency, (+item.amount_total / 100) ),
+                unitAmount : correctPrice(currencyWordToSymbols(item.price.currency) ,userCurrency, +item.price.unit_amount / 100),
+                quantity : item.quantity,
+                description : item.description,
+                image : orders.sort((prev, next) => next.timestamp - prev.timestamp)[0]?.images[i],
+                shipping : orders.sort((prev, next) => next.timestamp - prev.timestamp)[0].shipping,
+              };
+            return fixedToCurrency
+              })
+        
             console.log(order)
             setOrder(order)
          
         }
     
         getOrder()
-      }, [session])
+      }, [session, userCurrency])
     
       console.log(order)
-      // const items = deals?.filter((deal) => order?.images?.find((image) => image === deal.img))
 
-      // //correct this with discount later
+    //  const totalPrice = cartToUse.map((cartItem) => cartItem.deal.price * cartItem.quantity).reduce((acc, cur) => acc + cur, 0)
 
-      // const realItems = items?.filter((item) => order?.items?.find((orderItem) => orderItem.description === item.name && item.deal.price === (orderItem.amount_total / (100 * orderItem.quantity))))
-      // console.log(items, realItems)
+
   return (
     <div>
         <div className="flex flex-col w-full items-center space-y-1 justify-start">
             <p>Order successful</p>
             <p>Thanks for shopping with us. We give you the best of online retail experience.</p>
-            <p>Your order is expected to arrived on 20th of February, 2024.</p>
+            <p>Your order is expected to arrive soon!</p>
         </div>
-        <p className="text-center my-3 w-full">Order summary</p>
+        <p className="text-center my-3 font-semibold uppercase tracking-widest w-full">Order summary</p>
        <div className="flex flex-col space-y-1 w-full items-center justify-start">
-        <p>{order?.items.length > 1 ? `${order?.items.length} items` : `${order?.items.length} item`}</p>
-        <p className="uppercase">{formatAmount(order?.amount)} total {order?.amount_shipping ? ` + ${formatAmount(order?.amount_shipping)} shipping` : null}</p>
-       <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
-           {order?.images?.map((image, i) => <Image key={image + i} src={image} alt="product-image" width={500} height={300} className="object-cover" placeholder="blur" blurDataURL="/jumia_img_loader.png" />)}
+          {order &&  <p className="uppercase font-bold text-[24px]">{formatAmount((order?.map((curOrder) => curOrder.totalAmount).reduce((acc, cur) => acc + cur, 0)), currencySymbolToWords(userCurrency))}</p>
+         }
+       <div className="grid w-full items-start grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
+           {order?.map((orderNew, i) =>
+            <div key={orderNew.image + i} className="flex flex-col justify-center space-y-3 items-center">
+              <Image src={orderNew.image} alt="product-image" width={500} height={300} className="object-cover" placeholder="blur" blurDataURL="/jumia_img_loader.png" />
+              <div className="flex flex-col items-center justify-center space-y-1">
+              <p>{orderNew.description}</p>
+              <p>{userCurrency}{orderNew.unitAmount} {' '} x {' '} {orderNew.quantity}</p>
+              <p className="font-semibold">{userCurrency}{orderNew.totalAmount}</p>
+              </div>
+            </div>
+           )}
         </div>
        </div>
 

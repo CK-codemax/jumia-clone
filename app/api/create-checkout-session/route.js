@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server'
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
+function shippingRate(cur){
+  if(cur === 'usd')return 'shr_1Ood5KL6zEQMXk8I7LJzjTxs'
+  if(cur === 'gbp')return 'shr_1OeoDYL6zEQMXk8ImT2SYRsp'
+  if(cur === 'eur')return 'shr_1Ood8TL6zEQMXk8Ih96DMBrx'
+}
+
 
 
 export async function POST(response){
@@ -39,9 +45,9 @@ export async function POST(response){
         shipping_address_collection : {
           allowed_countries : ['GB', 'US', 'CA', 'NG',],
         },
-      // shipping_options : [ {
-      //   shipping_rate : 'shr_1OeoDYL6zEQMXk8ImT2SYRsp'
-      // },],
+      shipping_options : [ {
+        shipping_rate : shippingRate(currency)
+      },],
         mode : 'payment',
         success_url : `${process.env.HOST}/success`,
         cancel_url : `${process.env.HOST}/checkout`,
