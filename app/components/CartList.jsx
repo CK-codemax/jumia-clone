@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { correctPrice, currencySymbolToWords, getHistory } from "../utils/currencyConverters";
 import { formatAmount } from "../utils/helpers";
 import Link from "next/link";
+import SignIn from "./SignIn";
 
 
 
@@ -21,8 +22,6 @@ const axios = require('axios');
 export default function CartList({list}) {
  
     const { data : session } = useSession()
-
-    if(!session)redirect(`/api/auth/signin/google`)
 
     const storeCart = useSelector(state => state.cart)
     //because we are using combined reducers
@@ -95,6 +94,8 @@ export default function CartList({list}) {
       <Link className="hover:text-[#f68b1e]" href={'/'}>Please proceed to shopping page</Link>
     </div>
   )
+
+  if(!session)return<SignIn />
   return (
   <div className="flex flex-col lg:flex-row lg:px-10 py-2 lg:py-6 bg-gray-300 w-full lg:space-x-3 items-start">
       <div className="flex lg:px-2 bg-white lg:rounded-md flex-col w-full py-3">

@@ -5,8 +5,8 @@ import { collection, doc, getDocs } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Order from "./Order";
-import { redirect } from "next/navigation";
 import Link from "next/link";
+import SignIn from "./SignIn";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
@@ -17,8 +17,7 @@ export default function OrderList() {
  
 
   const { data : session } =  useSession()
-  if(!session)redirect(`/api/auth/signin/google`)
-
+ 
 
   useEffect(() => {
     async function getUsers(){
@@ -59,6 +58,8 @@ export default function OrderList() {
 
   console.log(orders)
 
+  if(!session)return<SignIn />
+
   if(orders.length < 1)return (
     <div className="flex items-center flex-col p-5 justify-center space-y-3">
       <p>You have not ordered any product!</p>
@@ -67,7 +68,7 @@ export default function OrderList() {
   )
  
    return(<div className="max-w-6xl mx-auto">
-    <p className="font-semibold">{orders.length > 1 ? `${orders.length} Orders` : `${orders.length} Order`}</p>
+    <p className="font-semibold text-center uppercase tracking-widest">{orders.length > 1 ? `${orders.length} Orders` : `${orders.length} Order`}</p>
     <div className="flex flex-col space-y-6 w-full">
     {orders?.map(({id, shipping, timestamp, items, images, amount, currency}) => <Order currency={currency} amount={amount} images={images} items={items} timestamp={timestamp} id={id} shipping={shipping} key={id} />)}
  

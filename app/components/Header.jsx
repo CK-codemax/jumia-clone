@@ -34,6 +34,21 @@ export default function Header() {
     dispatch(changeCurrency(cur))
     toast.success(`Currency changed to ${cur}`);
   }
+
+  const options = [
+    {
+      value: '$',
+      label: 'USD'
+    },
+    {
+      value: '€',
+      label: 'EUR'
+    },
+    {
+      value: '£',
+      label: 'GBP'
+    },
+  ];
   return (
     <header className={`flex flex-col`}>
         {/*Top*/}
@@ -43,20 +58,6 @@ export default function Header() {
             </div>
         </div>
 
-        {/*Middle*/}
-      
-      {/* {session && <>
-        <p>{session?.user.name}</p>
-        <p>{session?.user.email}</p>
-        <img src={session?.user.image} alt='ochuko' /> 
-      </>} */}
- 
-       <div className='flex items-center space-x-5'>
-       <div onClick={() => handleChangeCurrency('$')} className='px-4 py-2 text-white bg-gray-700 rounded-md'>USD</div>
-       <div onClick={() => handleChangeCurrency('€')}  className='px-4 py-2 text-white bg-gray-700 rounded-md'>EUR</div>
-       <div onClick={() => handleChangeCurrency('£')} className='px-4 py-2 text-white bg-gray-700 rounded-md'>GBP</div>
-       </div>
-      
         <div className="w-full relative">
 
        <div className="w-full bg-gray-200 h-6 hidden lg:block" />
@@ -83,16 +84,21 @@ export default function Header() {
  
  
               <div className="flex space-x-3">
-              <Link href={'/orders'} className="flex  lg:hover:text-[#f68b1e] items-center space-x-2">
+              
+             <select className=' outline-none' onChange={(e) =>  handleChangeCurrency(e.target.value)} name="cur" id="cur">
+             <option disabled selected>Currency</option>
+                <option value="$">USD</option>
+                 <option value="€">EUR</option>
+                  <option value="£">GBP</option>
+                </select>
+
+               
+                <Link href={'/orders'} className="flex  lg:hover:text-[#f68b1e] items-center space-x-2">
                  <HeaderIcon Icon={UserIcon} title={'orders'} />
                  <ChevronDownIcon className="hidden lg:inline-flex h-5"/>
                </Link>
- 
-               <div className=" hidden lg:flex hover:text-[#f68b1e] items-center space-x-2">
-                 <HeaderIcon Icon={QuestionMarkCircleIcon} title={'help'} />
-                 <ChevronDownIcon className="h-5"/>
-               </div>
- 
+
+
                <Link href={'/checkout'}  className="flex group relative lg:hover:text-[#f68b1e]  items-center space-x-2">
                  <HeaderIcon Icon={ShoppingCartIcon} title={'cart'} />
                  <span className='bg-[#f68b1e] group-hover:text-white absolute w-[20px] top-0 left-2 h-[20px] text-xs rounded-full flex justify-center items-center'>{cart.length}</span>
