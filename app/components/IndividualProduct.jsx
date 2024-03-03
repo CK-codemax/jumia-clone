@@ -9,6 +9,7 @@ import Button from "./Button"
 import toast from "react-hot-toast"
 import { correctPrice, correctShipping, getHistory } from "../utils/currencyConverters"
 import { redirect, useRouter } from "next/navigation"
+import Link from "next/link"
 
 export default function IndividualProduct({device, deals, id}) {
   const router = useRouter()
@@ -19,9 +20,9 @@ export default function IndividualProduct({device, deals, id}) {
   const userCurrency = useSelector(state => state.currency)
   //Without the state persist, this method is correct
   //const cart = useSelector(state => state.cart.cart)
-  const cartItemToUse = cart?.find((cartItemTo) => cartItemTo.url === deal.url) 
+  const cartItemToUse = cart?.find((cartItemTo) => cartItemTo.url === deal?.url) 
 
-  if(!deal && !cartItemToUse)redirect('/')
+  if(!deal && !cartItemToUse)redirect('/product-unavailable')
 
  const cartItem = cartItemToUse && {
   ...cartItemToUse,
@@ -80,7 +81,8 @@ const itemStillAvailable = cartItem ? Boolean(deals.filter(deal => deal.url === 
     } 
 }
 
-    console.log(device, deal, newDeal, cartItem, deals, itemStillAvailable)
+    console.log(id, device, deal, newDeal, cartItem, deals, itemStillAvailable)
+ 
   return (
    <>
    
