@@ -9,15 +9,32 @@ import Button from "./Button"
 import toast from "react-hot-toast"
 import { correctPrice, correctShipping, getHistory } from "../utils/currencyConverters"
 import { redirect, useRouter } from "next/navigation"
-import Link from "next/link"
+import ProductThumbnail from "./ProductThumbnail"
 
 export default function IndividualProduct({device, deals, id}) {
   const router = useRouter()
+  const userCurrency = useSelector(state => state.currency)
   const deal = deals.find((dealNew) => dealNew.id === id)
+
+  const productsToUse = deals?.map((fullDeal) => {
+   
+  
+    const fixedToCurrency = {
+      ...fullDeal,
+      history : getHistory(fullDeal.history, userCurrency),
+      deal: {
+        ...fullDeal.deal,
+        currency: userCurrency,
+        discount: correctPrice(fullDeal.deal.currency, userCurrency, fullDeal.deal.discount),
+        price : correctPrice(fullDeal.deal.currency, userCurrency, fullDeal.deal.price),
+      }
+    };
+  return fixedToCurrency
+  })
+
   const storeCart = useSelector(state => state.cart)
   //because we are using combined reducers
   const cart = storeCart.cart
-  const userCurrency = useSelector(state => state.currency)
   //Without the state persist, this method is correct
   //const cart = useSelector(state => state.cart.cart)
   const cartItemToUse = cart?.find((cartItemTo) => cartItemTo.url === deal?.url) 
@@ -81,13 +98,13 @@ const itemStillAvailable = cartItem ? Boolean(deals.filter(deal => deal.url === 
     } 
 }
 
-    console.log(id, device, deal, newDeal, cartItem, deals, itemStillAvailable)
+    console.log(deals, productsToUse)
  
   return (
    <>
    
     {cartItem ? (
-       <div className="w-full min-h-screen">
+       <div className="w-full">
        <div className="flex flex-col justify-center items-center lg:items-start w-full lg:flex-row">
    
      <div className=" w-full  lg:w-[25%]">
@@ -155,7 +172,7 @@ const itemStillAvailable = cartItem ? Boolean(deals.filter(deal => deal.url === 
      </div>
      </div>
     ) : (
-       <div className="w-full min-h-screen">
+       <div className="w-full">
       <div className="flex flex-col justify-center items-center lg:items-start w-full lg:flex-row">
 
     <div className=" w-full  lg:w-[25%]">
@@ -224,7 +241,12 @@ const itemStillAvailable = cartItem ? Boolean(deals.filter(deal => deal.url === 
     </div>
     </div> 
     )}
-
+    
+    
+    <p className="font-semibold mt-5 ml-4 lg:ml-[21%] text-lg lg:text-xl mb-4 uppercase">more products</p>
+      <div className=" flex gap-x-2.5 max-w-6xl mx-auto px-5 py-4 overflow-x-scroll scrollbar-hide ">
+       {productsToUse.slice(0,10).map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
+      </div>
    
    </>
   )

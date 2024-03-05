@@ -88,6 +88,8 @@ export default function CartList({list}) {
       
     }
    console.log(cart, cartToUse)
+   if(!session)return<SignIn />
+
    if(cart.length < 1)return (
     <div className="flex items-center flex-col p-5 justify-center space-y-3">
       <p>You do not have any items in your cart right now!</p>
@@ -95,8 +97,15 @@ export default function CartList({list}) {
     </div>
   )
 
-  if(!session)return<SignIn />
+  
   return (
+    <>
+      <div className="w-full flex flex-col items-center justify-center">
+          <p className="text-center">You will be redirected to a stripe checkout page from here.</p>
+          <p className="text-center">Note that your card number is <span className="font-semibold text-lg">4242 4242 4242 4242</span></p>
+          <p className="text-center">For expiry date, <span className="font-semibold text-lg">enter any date in the future</span> and your <span className="font-semibold text-lg">CVV is any 3 numbers</span>!</p>
+          <p className="text-center">Have a nice checkout experience!</p>
+        </div>
   <div className="flex flex-col lg:flex-row lg:px-10 py-2 lg:py-6 bg-gray-300 w-full lg:space-x-3 items-start">
       <div className="flex lg:px-2 bg-white lg:rounded-md flex-col w-full py-3">
     <div className="flex items-center pb-4 border-b justify-between">
@@ -107,11 +116,21 @@ export default function CartList({list}) {
        </button>
        ) : null }
     </div>
+      
         {cartToUse.map((item) => <IndividualCart key={item.url} item={item} list={list}/>)}
     </div>
 
+  
+        <div className="flex py-2 lg:hidden w-full flex-col items-center">
+        <div className="flex w-full justify-center space-x-4 items-start">
+            <p className="capitalize font-semibold">subtotal{' '} :</p>
+            <p className="font-semibold">{formatAmount(totalPrice, currencySymbolToWords(userCurrency))}</p>
+        </div>
+        <p className="text-xs text-center text-gray-600">Delivery fees not included yet.</p>
+       </div>
+
    {cartToUse.length > 0 ? (
-     <div className="flex mt-3 w-full lg:hidden items-center space-x-1">
+     <div className="flex w-full lg:hidden items-center space-x-1">
      <button  role="link" onClick={createCheckoutSession}  className="mt-5 mx-auto text-white py-2 text-center w-[90%] rounded-md bg-[#f68b1e]">
          <span className="uppercase font-semibold">checkout</span>
        </button>
@@ -145,5 +164,6 @@ export default function CartList({list}) {
  </div>
 
   </div>
+  </>
   )
 }

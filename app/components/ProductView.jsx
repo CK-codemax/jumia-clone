@@ -61,62 +61,62 @@ export default function ProductView({products}) {
     console.log(products, productsToUse)
   return (
     <>
-   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
+   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-2">
    {productsToUse.slice(0, 8).map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
    </div>
 
-   <div className="my-3 grid p-4 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
+   <div className="my-3 grid py-4 px-2 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
     {images.slice(0, 6).map((image) => <div className="flex flex-col items-center justify-center space-y-2" key={image.path}>
     <Image className="cursor-pointer rounded-md object-cover" src={image.path} alt='category-image' width={300} height={240} />
     <p className="text-center capitalize">{image.name}</p>
     </div>)}
    </div>
 
-   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
+   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-2">
    {productsToUse.slice(8, 14).map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
    </div>
      
-   <div className="my-3 grid p-4 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
+   <div className="my-3 grid  py-4 px-2 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
     {images.slice(6, 12).map((image) => <div className="flex flex-col items-center justify-center space-y-2" key={image.path}>
     <Image className="cursor-pointer rounded-md object-cover" src={image.path} alt='category-image' width={300} height={240} />
     <p className="text-center capitalize">{image.name}</p>
     </div>)}
    </div>
 
-   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
+   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-2">
    {productsToUse.slice(14, 20).map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
    </div>
 
-   <div className="my-3 grid p-4 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
+   <div className="my-3 grid  py-4 px-2 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
     {images.slice(12, 18).map((image) => <div className="flex flex-col items-center justify-center space-y-2" key={image.path}>
     <Image className="cursor-pointer rounded-md object-cover" src={image.path} alt='category-image' width={300} height={240} />
     <p className="text-center capitalize">{image.name}</p>
     </div>)}
    </div>
 
-   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
+   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-2">
    {productsToUse.slice(20, 28).map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
    </div>
 
-   <div className="my-3 grid p-4 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
+   <div className="my-3 grid  py-4 px-2 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
     {images.slice(18, 24).map((image) => <div className="flex flex-col items-center justify-center space-y-2" key={image.path}>
     <Image className="cursor-pointer rounded-md object-cover" src={image.path} alt='category-image' width={300} height={240} />
     <p className="text-center capitalize">{image.name}</p>
     </div>)}
    </div>
 
-   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
+   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-2">
    {productsToUse.slice(28, 34).map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
    </div>
 
-   <div className="my-3 grid p-4 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
+   <div className="my-3 grid  py-4 px-2 box-border gap-0.5 sm:gap-1 xl:gap-2 grid-rows-2 grid-cols-3 sm:grid-rows-2 sm:grid-cols-4 lg:grid-rows-1 lg:grid-cols-6  w-full flex-wrap mt-2 justify-start items-start">
     {images.slice(24, images.length).map((image) => <div className="flex flex-col items-center justify-center space-y-2" key={image.path}>
     <Image className="cursor-pointer rounded-md object-cover" src={image.path} alt='category-image' width={300} height={240} />
     <p className="text-center capitalize">{image.name}</p>
     </div>)}
    </div>
 
-   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-5">
+   <div className="grid w-full grid-cols-2 sm:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-4 px-2">
    {productsToUse.slice(34, productsToUse.length - 1).map((product, i) => <ProductThumbnail key={product.id + i}  product={product} />)}
    </div>
 

@@ -7,7 +7,7 @@ const images = [ 'https://ng.jumia.is/cms/0-1-category-pages/0-cat-dev/2024/Feb/
 
 export default function BottomImages() {
   return (
-    <div className="grid grid-rows-4 grid-cols-1 gap-y-2 w-full px-6 my-4 lg:grid-rows-2 lg:gap-x-4 lg:gap-y-4 lg:grid-cols-2">
+    <div className="grid grid-rows-4 grid-cols-1 gap-y-2 w-full px-2 my-4 lg:grid-rows-2 lg:gap-x-4 lg:gap-y-4 lg:grid-cols-2">
         {images.map((image) => <Image key={image} className="cursor-pointer h-auto w-[100%] rounded-md object-cover" src={image} alt='category-image' width={572} height={250} />)}
     </div>
   )

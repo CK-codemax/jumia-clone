@@ -24,7 +24,9 @@ export default function SlideShow(){
 
     return (
       <>
-      <Swiper className="hidden lg:inline-flex"
+       <div className="overflow-hidden hidden lg:inline-flex">
+      <div className="w-full">
+      <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={50}
         slidesPerView={1}
@@ -47,10 +49,12 @@ export default function SlideShow(){
   
   
       </Swiper>
+      </div>
+     </div>
   
      <div className="overflow-hidden lg:hidden">
       <div className="w-[230vw] -translate-x-[65vw]">
-      <Swiper className="pr-3"
+      <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={20}
         slidesPerView={3}

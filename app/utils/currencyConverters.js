@@ -1,6 +1,5 @@
 const EURUSD = 1.1;
 const GBPUSD = 1.2;
-const USDUSD = 1;
 const EURGBP = 1.05
 
 
@@ -74,9 +73,6 @@ export const getHistory = (history, cur) => {
     if(sys === '$'){
       return 'usd'
     }
-    if(sys === '₦'){
-      return 'ngn'
-    }
     if(sys === '€'){
       return 'eur'
     }
@@ -88,9 +84,6 @@ export const getHistory = (history, cur) => {
   export function currencyWordToSymbols(word){
     if(word === 'usd'){
       return '$'
-    }
-    if(word === 'ngn'){
-      return '₦'
     }
     if(word === 'eur'){
       return '€'
