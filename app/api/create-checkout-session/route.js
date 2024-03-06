@@ -15,7 +15,7 @@ export async function POST(response){
     const data = await response.json()
     
 
-    const { cartItems : items, email, currency } = data
+    const { cartItems : items, email, currency, uniqueId } = data
    // console.log(items, email)
 
    
@@ -49,7 +49,7 @@ export async function POST(response){
         shipping_rate : shippingRate(currency)
       },],
         mode : 'payment',
-        success_url : `${process.env.HOST}/success`,
+        success_url : `${process.env.HOST}/success/${uniqueId}`,
         cancel_url : `${process.env.HOST}/checkout`,
         metadata : {
             email,

@@ -72,10 +72,6 @@ export default function OrderSuccess() {
       }, [session, userCurrency])
     
       console.log(order)
-
-    //  const totalPrice = cartToUse.map((cartItem) => cartItem.deal.price * cartItem.quantity).reduce((acc, cur) => acc + cur, 0)
-
-
   return (
     <div>
         <div className="flex flex-col w-full items-center space-y-1 justify-center">

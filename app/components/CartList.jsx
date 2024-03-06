@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { correctPrice, currencySymbolToWords, getHistory } from "../utils/currencyConverters";
 import { formatAmount } from "../utils/helpers";
 import Link from "next/link";
+import { v4 } from "uuid";
 
 
 
@@ -64,7 +65,7 @@ export default function CartList({list}) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                cartItems : cartToUse, email : session.user.email, currency : currencySymbolToWords(userCurrency),
+                cartItems : cartToUse, email : session.user.email, currency : currencySymbolToWords(userCurrency), uniqueId : `${v4()}${new Date().toISOString()}`,
             })
         })
        

@@ -1,3 +1,10 @@
+This is a clone of (https://www.jumia.com.ng/). I built this app to consolidate my knowledge of ReactJS, NextJS, TailwindCSS.
+I also used some special packages for building this app.
+I used Redux and Redux persist for state management.
+I used the swiperjs library for the slideshow.
+For the payment system, I used the free stripe checkout.
+Finally, for storage of user data I used firebase firestore database and firebase authentication coupled with nextauth for authentication. 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

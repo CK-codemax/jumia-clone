@@ -1,10 +1,10 @@
 'use client'
 
 import { useDispatch } from "react-redux";
-import OrderSuccess from "../components/OrderSuccess";
-import { clearCart } from "../redux/cartSlice";
+import OrderSuccess from "../../components/OrderSuccess";
+import { clearCart } from "../../redux/cartSlice";
 import { useEffect } from "react";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 
 
 export default function Page(){
