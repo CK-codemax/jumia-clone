@@ -2,6 +2,7 @@
 import ProductView from './components/ProductView';
 import HomeTop from './components/HomeTop';
 import Header from './components/Header';
+import InputBox from './components/InputBox';
 
 
 

@@ -73,10 +73,10 @@ function Window() {
 
     return createPortal(<>
     
-        <div className={`w-full lg:hidden bg-[rgba(255, 255, 255, 0.1)] h-screen ${isOpen ? 'block' : 'hidden'} z-20 fixed top-0 left-0 backdrop-blur-sm transition-all duration-500`}/>
+        <div className={`w-full lg:hidden bg-[rgba(255, 255, 255, 0.1)] h-screen ${isOpen ? 'block' : 'hidden'} z-50 fixed top-0 left-0 backdrop-blur-sm transition-all duration-500`}/>
         
-        <div className={`lg:hidden h-screen min-w-[85vw] fixed z-30 top-0 left-0  ${isOpen ? 'translate-x-0' : '-translate-x-[100%]' } transition-all duration-500 linear origin-left`}>
-         <div ref={menuRef} className="overflow-y-scroll flex flex-col w-full h-screen border-r border-gray-400 z-30 bg-white">
+        <div className={`lg:hidden h-screen min-w-[85vw] fixed z-50 top-0 left-0  ${isOpen ? 'translate-x-0' : '-translate-x-[100%]' } transition-all duration-500 linear origin-left`}>
+         <div ref={menuRef} className="overflow-y-scroll flex flex-col w-full h-screen border-r border-gray-400 z-50 bg-white">
         <div className="flex items-center space-x-3 px-4">
         <XMarkIcon onClick={closeModal} className="h-5 text-black" />
 

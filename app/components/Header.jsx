@@ -46,8 +46,11 @@ export default function Header() {
       label: 'GBP'
     },
   ];
+
+ // {/*<header className='flex flex-col mb-4'>*/}
   return (
-    <header className='sticky flex flex-col mb-4'>
+    
+    <>
         {/*Top*/}
         <div className="hidden lg:flex w-full">
             <div className="w-full bg-[var(--hover-bg)] px-16">
@@ -55,11 +58,11 @@ export default function Header() {
             </div>
         </div>
 
-        <div className="w-full relative">
+       
 
        <div className="w-full bg-gray-200 h-6 hidden lg:block" />
-
-        <div className="flex justify-between space-x-3 pt-1 px-4 lg:px-12 items-center bg-white">
+       <div className="w-full z-30 sticky top-0 bg-white">
+        <div className="flex justify-between space-x-3 pt-1 px-4 lg:px-12  items-center bg-white">
               
               <div className="flex items-center space-x-3 lg:mr-20">
               
@@ -112,13 +115,13 @@ export default function Header() {
               </div>
             </div>
  
+        </div>
           <div className="lg:hidden mb-3">
           <InputBox />
           </div>
               
-        </div>
         <div className="w-full bg-gray-200 h-6" />
-    </header>
+    </>
   )
 }
 

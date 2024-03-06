@@ -1,10 +1,11 @@
 
 import Image from "next/image";
 import { EnvelopeIcon } from "@heroicons/react/24/solid";
+import ScrollToTop from "./ScrollToTop";
 
 export default function Footer() {
   return (
-    <div className="mt-5 flex flex-col w-full">
+    <div className="mt-5 flex flex-col bg-[#212121] pb-5 w-full">
       {/*Footer top*/}
       <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row px-4 sm:items-start sm:space-x-6 py-8 sm:px-8 lg:justify-between bg-[#212121]">
       <Image className="hidden sm:inline-flex w-[100px] lg:w-[250px] invert object-cover" src='/jumia-logo.png' width={500} height={200} alt="jumia-logo" />
@@ -49,13 +50,9 @@ export default function Footer() {
       </div>
         
 
+       
       </div>
-
-      {/*Footer Lists */}
-
-      {/*Footer bottom*/}
-
-
+      <ScrollToTop />
     </div>
   )
 }
