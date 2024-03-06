@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./components/Header";
 import ReduxProvider from "./ReduxProvider";
 import { getServerSession } from "next-auth";
 import { options } from "./api/auth/[...nextauth]/options";
@@ -26,7 +25,6 @@ export default async function RootLayout({ children }) {
      <AuthProvider session={session}>
 
        <ReduxProvider>
-       <Header />
          {children}
          <Footer />
        </ReduxProvider>

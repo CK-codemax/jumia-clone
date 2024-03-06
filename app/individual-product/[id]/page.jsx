@@ -1,5 +1,5 @@
+import Header from '@/app/components/Header';
 import IndividualProduct from '@/app/components/IndividualProduct';
-import { redirect } from 'next/navigation';
 
 const gsmarena = require('gsmarena-api');
 
@@ -11,8 +11,9 @@ export default async function page({params : {id = null}}) {
 
    
   return (
-    <div>
+    <>
+          <Header />
         <IndividualProduct device={device} deals={deals} id={id} />
-    </div>
+    </>
   )
 }

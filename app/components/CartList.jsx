@@ -2,22 +2,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import IndividualCart from "./IndividualCart";
 import { clearCart } from "../redux/cartSlice";
-import { redirect } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
-import { collection, doc, getDocs } from "firebase/firestore";
-import { db } from "@/firebase";
-import ShowSuccess from "./OrderList";
 import toast from "react-hot-toast";
 import { correctPrice, currencySymbolToWords, getHistory } from "../utils/currencyConverters";
 import { formatAmount } from "../utils/helpers";
 import Link from "next/link";
-import SignIn from "./SignIn";
+
 
 
 
 const asyncStripe = loadStripe('pk_test_51OemV9L6zEQMXk8IKB0PhZU0XR9uyNgzVntexCvIPKDAf2sSEYd6PTrZSkrVVn0X3L6yPNWWG9R0WV5tqZtl8KIA001sA1OQ2G')
-const axios = require('axios');
 
 export default function CartList({list}) {
  
@@ -88,7 +83,7 @@ export default function CartList({list}) {
       
     }
    console.log(cart, cartToUse)
-   if(!session)return<SignIn />
+   //if(!session)redirect('/SignIn')
 
    if(cart.length < 1)return (
     <div className="flex items-center flex-col p-5 justify-center space-y-3">
@@ -100,7 +95,7 @@ export default function CartList({list}) {
   
   return (
     <>
-      <div className="w-full flex flex-col items-center justify-center">
+      <div className="w-full flex flex-col items-center justify-center px-4">
           <p className="text-center">You will be redirected to a stripe checkout page from here.</p>
           <p className="text-center">Note that your card number is <span className="font-semibold text-lg">4242 4242 4242 4242</span></p>
           <p className="text-center">For expiry date, <span className="font-semibold text-lg">enter any date in the future</span> and your <span className="font-semibold text-lg">CVV is any 3 numbers</span>!</p>

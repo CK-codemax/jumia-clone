@@ -1,23 +1,17 @@
 'use client'
-import { redirect } from 'next/navigation';
-import {signIn, signOut, useSession} from 'next-auth/react'
 import Image from "next/image";
 import HeaderIcon from "./HeaderIcon";
-import {Bars3Icon, BriefcaseIcon, BuildingOffice2Icon, ChevronDownIcon, PhoneIcon, QuestionMarkCircleIcon, ShoppingCartIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import {ChevronDownIcon, ShoppingCartIcon, UserIcon} from '@heroicons/react/24/outline'
 import Link from "next/link";
-import SlideShow from "./SlideShow";
-import NavBar from "./NavBar";
 import InputBox from "./InputBox";
-import { useState } from "react";
-import Categories from "./Categories";
 import { useDispatch, useSelector } from 'react-redux';
 import MenuModal from './MenuModal';
 import toast from 'react-hot-toast';
 import { changeCurrency } from '../redux/currencySlice';
+import CurrencySelector from './CurrencySelector';
 
 
 export default function Header() {
-  const { data : session } = useSession()
   const storeCart = useSelector(state => state.cart)
   //because we are using combined reducers
   const cart = storeCart.cart
@@ -29,11 +23,14 @@ export default function Header() {
 
  const dispatch = useDispatch()
 
-  function handleChangeCurrency(cur){
-   
-    dispatch(changeCurrency(cur))
-    toast.success(`Currency changed to ${cur}`);
-  }
+
+ const handleCurrencyChange = (newCurrency) => {
+  dispatch(changeCurrency(newCurrency))
+  toast.success(`Currency changed to ${newCurrency}`);
+  //setCurrency(newCurrency.label);
+    // Here you can also handle the logic to change the currency in your application
+ };
+
 
   const options = [
     {
@@ -60,18 +57,19 @@ export default function Header() {
 
         <div className="w-full relative">
 
-       <div className="w-full bg-gray-200 h-6" />
+       <div className="w-full bg-gray-200 h-6 hidden lg:block" />
 
-        <div className="flex justify-between space-x-3 px-4 lg:px-12 items-center bg-white">
+        <div className="flex justify-between space-x-3 pt-1 px-4 lg:px-12 items-center bg-white">
               
-              <div className="flex items-center space-x-3 mr-20">
+              <div className="flex items-center space-x-3 lg:mr-20">
               
            <MenuModal>
              <MenuModal.Open />
              <MenuModal.Window />
            </MenuModal>
          <Link href={'/'} className="hover:bg-[#f68b1e] sm:hover:bg-transparent">
-         <HeaderIcon src={'/jumia-logo.png'} />
+         {/* <HeaderIcon src={'/jumia-logo.png'} /> */}
+         <Image className="w-[100px] lg:w-[250px] object-cover h-auto mx-auto" src='/jumia-logo.png' width={500} height={200} alt="jumia-logo" />
         </Link>
         
              </div>
@@ -83,14 +81,20 @@ export default function Header() {
               </div>
  
  
-              <div className="flex space-x-3">
+              <div className="flex sm:space-x-3">
               
-             <select className=' outline-none' onChange={(e) =>  handleChangeCurrency(e.target.value)} name="cur" id="cur">
+             {/* <select className=' outline-none' onChange={(e) =>  handleChangeCurrency(e.target.value)} name="cur" id="cur">
              <option disabled selected>Currency</option>
                 <option value="$">USD</option>
                  <option value="€">EUR</option>
                   <option value="£">GBP</option>
-                </select>
+                </select> */}
+
+<CurrencySelector
+        currencies={options}
+        onCurrencyChange={handleCurrencyChange}
+        userCurrency={userCurrency}
+      />
 
                
                 <Link href={'/orders'} className="flex  lg:hover:text-[#f68b1e] items-center space-x-2">

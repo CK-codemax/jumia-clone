@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { formatAmount } from "../utils/helpers";
-import { currencySymbolToWords } from "../utils/currencyConverters";
 
 export default function Order({id, amount, shipping, currency, items, images, timestamp}) {
   return (

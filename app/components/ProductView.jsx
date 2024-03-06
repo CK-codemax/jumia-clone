@@ -16,7 +16,7 @@ const images = [
   {name : 'sneakers', path : 'https://ng.jumia.is/cms/0-1-homepage/0-0-thumbnails/2024/Feb/Artboard_1_copy_6.png'},
   {name : 'half price', path : 'https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/week-5/Pay-Day/Half_Price_Store.jpg'},
   {name : 'hair care', path : 'https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/week-5/Pay-Day/Hair_Care.jpg'},
-  {name : 'beverages', path : 'https://ng.jumia.is/cms/0-1-weekly-cps/0-2024/week-5/Pay-Day/Beverages.jpg'},
+  {name : 'gaming deals', path : 'https://ng.jumia.is/cms/0-1-category-pages/0-all-category/updated/Gaming.jpg'},
   {name : '5K store', path : 'https://ng.jumia.is/cms/0-1-homepage/0-0-thumbnails/2024/Feb/Artboard_1_copy_12.png'},
   {name : '18+ store', path : 'https://ng.jumia.is/cms/0-1-homepage/0-0-thumbnails/2024/Feb/18plus.jpg'},
   {name : 'clearance', path : 'https://ng.jumia.is/cms/0-1-homepage/0-0-thumbnails/2024/Feb/Artboard_1.png'},

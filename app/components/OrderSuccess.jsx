@@ -78,10 +78,10 @@ export default function OrderSuccess() {
 
   return (
     <div>
-        <div className="flex flex-col w-full items-center space-y-1 justify-start">
-            <p>Order successful</p>
-            <p>Thanks for shopping with us. We give you the best of online retail experience.</p>
-            <p>Your order is expected to arrive soon!</p>
+        <div className="flex flex-col w-full items-center space-y-1 justify-center">
+            <p className="text-center">Order successful</p>
+            <p className="text-center">Thanks for shopping with us. We give you the best of online retail experience.</p>
+            <p className="text-center">Your order is expected to arrive soon!</p>
         </div>
         <p className="text-center my-3 font-semibold uppercase tracking-widest w-full">Order summary</p>
        <div className="flex flex-col space-y-1 w-full items-center justify-start">

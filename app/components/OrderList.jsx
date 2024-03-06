@@ -6,7 +6,6 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Order from "./Order";
 import Link from "next/link";
-import SignIn from "./SignIn";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
@@ -58,7 +57,7 @@ export default function OrderList() {
 
   console.log(orders)
 
-  if(!session)return<SignIn />
+  // if(!session)redirect('/SignIn')
 
   if(orders.length < 1)return (
     <div className="flex items-center flex-col p-5 justify-center space-y-3">

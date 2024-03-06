@@ -1,6 +1,6 @@
 'use client'
 
-import { BuildingOfficeIcon, BuildingStorefrontIcon, CalculatorIcon, ChevronRightIcon, ComputerDesktopIcon, DevicePhoneMobileIcon, EllipsisHorizontalCircleIcon, FaceSmileIcon, GlobeAsiaAustraliaIcon, HeartIcon, MicrophoneIcon, PhoneIcon, PlusCircleIcon, PuzzlePieceIcon, ReceiptPercentIcon, ReceiptRefundIcon} from "@heroicons/react/24/outline"
+import { BuildingOfficeIcon, BuildingStorefrontIcon, CalculatorIcon, ComputerDesktopIcon, DevicePhoneMobileIcon, EllipsisHorizontalCircleIcon, FaceSmileIcon, GlobeAsiaAustraliaIcon, HeartIcon, MicrophoneIcon, PhoneIcon, PlusCircleIcon, PuzzlePieceIcon, ReceiptPercentIcon, ReceiptRefundIcon} from "@heroicons/react/24/outline"
 
 
 

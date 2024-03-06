@@ -42,4 +42,37 @@
        transform: rotate(1turn);
     }
  }
+
+ .dropdown {
+    position: relative;
+    display: inline-flex;
+   }
+   
+   .dropdown-menu {
+    display: block;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 6px 8px;
+    border-radius: 10px;
+   }
+   
+   .dropdown-menu button {
+    color: black;
+    padding: 4px 12px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    font-size: 12px;
+   }
+
+   .dropdown-menu button:hover {
+    background-color: #f1f1f1;
+    border-radius: 10px}
+
+   .dropdown:hover .dropdown-menu {
+    display: block;
+   }
 }

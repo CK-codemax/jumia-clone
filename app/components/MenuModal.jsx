@@ -1,5 +1,5 @@
 'use client'
-import { cloneElement, createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Bars3Icon, BuildingOfficeIcon, BuildingStorefrontIcon, CalculatorIcon, ChevronRightIcon, ComputerDesktopIcon, DevicePhoneMobileIcon, EllipsisHorizontalCircleIcon, FaceSmileIcon, GlobeAsiaAustraliaIcon, HeartIcon, MicrophoneIcon, PhoneIcon, PlusCircleIcon, PuzzlePieceIcon, ReceiptPercentIcon, ReceiptRefundIcon, XMarkIcon} from "@heroicons/react/24/outline"
 import Link from "next/link"
@@ -132,12 +132,6 @@ function Window() {
 
   
 }
-
-{/* <div className={`sm:hidden h-screen w-[80%] fixed z-30 top-0 left-0  ${isOpen ? 'translate-x-0' : '-translate-x-[100%]' } transition-all duration-500 linear origin-left`}>
-<div ref={sideBarRef} className="bg-blue-300 h-full w-full"></div>
-</div>,
-document.body */}
-
 
 MenuModal.Open = Open;
 MenuModal.Window = Window;
