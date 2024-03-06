@@ -25,7 +25,7 @@ export default function Order({id, amount, shipping, currency, items, images, ti
         </div>
 
         <div className="p-5 sm:p-10">
-            <div className="flex space-x-6 overflow-x-auto">
+            <div className="flex space-x-6 overflow-x-auto scrollbar-hide">
                 {images.map((image) => <Image className="h-20 object-contain sm:h-32" src={image} width={500} height={500} key={image} alt="order-images" />)}
             </div>
         </div>

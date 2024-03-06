@@ -28,7 +28,7 @@ export default function OrderList() {
         const data = doc.data(); 
         data.id = doc.id;
         return data;
-      })
+      }).sort((prev, next) => next.timestamp - prev.timestamp)
     
       console.log(datas)
   
